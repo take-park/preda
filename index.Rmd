@@ -1,7 +1,7 @@
 ---
-title: "iyo-distill"
+title: "태익 응통 과제 홈"
 description: |
-  Welcome to the website. I hope you enjoy it!
+  Welcome to the website. 근데, 과제만 있어요. 볼 건 없어요! 
 site: distill::distill_website
 ---
 

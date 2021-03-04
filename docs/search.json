@@ -2,19 +2,18 @@
   "articles": [
     {
       "path": "about.html",
-      "title": "About this site",
-      "description": "Some additional details about the website",
+      "title": "태익",
       "author": [],
-      "contents": "\n\n\n\n",
-      "last_modified": "2021-03-04T12:14:51+00:00"
+      "contents": "\n\n          \n          \n          태익-distill\n          \n          \n          Home\n          About\n          ☰\n          \n          \n      \n        \n          \n            태익\n          \n          \n            \n              ** 물놀이를 좋아합니다~ ^^ **\n            \n            \n              ** 물놀이를 좋아합니다~ ^^ **\n            \n          \n\n          \n            \n              \n                  \n                    \n                      GitHub\n                    \n                  \n                \n                                \n                  \n                    \n                      Email\n                    \n                  \n                \n                              \n          \n\n          \n            \n              \n                                \n                  \n                    GitHub\n                  \n                \n                                \n                  \n                    Email\n                  \n                \n                              \n            \n          \n        \n      \n    \n\n    \n    \n    ",
+      "last_modified": "2021-03-04T12:28:51+00:00"
     },
     {
       "path": "index.html",
-      "title": "iyo-distill",
-      "description": "Welcome to the website. I hope you enjoy it!\n",
+      "title": "태익 응통 과제 홈",
+      "description": "Welcome to the website. 근데, 과제만 있어요. 볼 건 없어요! \n",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-03-04T12:15:41+00:00"
+      "last_modified": "2021-03-04T12:58:22+00:00"
     }
   ],
   "collections": []
