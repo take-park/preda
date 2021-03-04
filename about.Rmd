@@ -1,5 +1,5 @@
 ---
-title: "태익"
+title: "take"
 image: "divetake.png"
 links:
   - label: GitHub

@@ -2,10 +2,10 @@
   "articles": [
     {
       "path": "about.html",
-      "title": "태익",
+      "title": "take",
       "author": [],
-      "contents": "\n\n          \n          \n          태익-distill\n          \n          \n          Home\n          About\n          ☰\n          \n          \n      \n        \n          \n            태익\n          \n          \n            \n              ** 물놀이를 좋아합니다~ ^^ **\n            \n            \n              ** 물놀이를 좋아합니다~ ^^ **\n            \n          \n\n          \n            \n              \n                  \n                    \n                      GitHub\n                    \n                  \n                \n                                \n                  \n                    \n                      Email\n                    \n                  \n                \n                              \n          \n\n          \n            \n              \n                                \n                  \n                    GitHub\n                  \n                \n                                \n                  \n                    Email\n                  \n                \n                              \n            \n          \n        \n      \n    \n\n    \n    \n    ",
-      "last_modified": "2021-03-04T12:28:51+00:00"
+      "contents": "\n\n          \n          \n          take-distill\n          \n          \n          Home\n          About\n          ☰\n          \n          \n      \n        \n          \n            take\n          \n          \n            \n              ** 물놀이를 좋아합니다~ ^^ **\n            \n            \n              ** 물놀이를 좋아합니다~ ^^ **\n            \n          \n\n          \n            \n              \n                  \n                    \n                      GitHub\n                    \n                  \n                \n                                \n                  \n                    \n                      Email\n                    \n                  \n                \n                              \n          \n\n          \n            \n              \n                                \n                  \n                    GitHub\n                  \n                \n                                \n                  \n                    Email\n                  \n                \n                              \n            \n          \n        \n      \n    \n\n    \n    \n    ",
+      "last_modified": "2021-03-04T13:03:20+00:00"
     },
     {
       "path": "index.html",
@@ -13,7 +13,7 @@
       "description": "Welcome to the website. 근데, 과제만 있어요. 볼 건 없어요! \n",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-03-04T12:58:22+00:00"
+      "last_modified": "2021-03-04T13:03:06+00:00"
     }
   ],
   "collections": []

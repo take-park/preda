@@ -1,7 +1,7 @@
 name: "."
-title: "태익-distill"
+title: "take-distill"
 description: |
-  태익-distill
+  take-distill
 output_dir: "docs"
 navbar:
   right:
