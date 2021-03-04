@@ -1,0 +1,13 @@
+---
+title: "태익"
+image: "divetake.png"
+links:
+  - label: GitHub
+    url: "https://github.com/take-park/preda"
+  - label: Email
+    url: "mailto:take2ne@naver.com"
+output:
+  postcards::jolla
+---
+ 
+** 물놀이를 좋아합니다~ ^^ **
