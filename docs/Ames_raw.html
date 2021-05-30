@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>여기도 부동산</title>
+
+<!--radix_placeholder_navigation_in_header-->
+<meta name="distill:offset" content=""/>
+
+<script type="application/javascript">
+
+  window.headroom_prevent_pin = false;
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+
+    // initialize headroom for banner
+    var header = $('header').get(0);
+    var headerHeight = header.offsetHeight;
+    var headroom = new Headroom(header, {
+      tolerance: 5,
+      onPin : function() {
+        if (window.headroom_prevent_pin) {
+          window.headroom_prevent_pin = false;
+          headroom.unpin();
+        }
+      }
+    });
+    headroom.init();
+    if(window.location.hash)
+      headroom.unpin();
+    $(header).addClass('headroom--transition');
+
+    // offset scroll location for banner on hash change
+    // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+    window.addEventListener("hashchange", function(event) {
+      window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+    });
+
+    // responsive menu
+    $('.distill-site-header').each(function(i, val) {
+      var topnav = $(this);
+      var toggle = topnav.find('.nav-toggle');
+      toggle.on('click', function() {
+        topnav.toggleClass('responsive');
+      });
+    });
+
+    // nav dropdowns
+    $('.nav-dropbtn').click(function(e) {
+      $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+      $(this).parent().siblings('.nav-dropdown')
+         .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $("body").click(function(e){
+      $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $(".nav-dropdown").click(function(e){
+      e.stopPropagation();
+    });
+  });
+</script>
+
+<style type="text/css">
+
+/* Theme (user-documented overrideables for nav appearance) */
+
+.distill-site-nav {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #0F2E3D;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.distill-site-nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.distill-site-nav a:hover {
+  color: white;
+}
+
+@media print {
+  .distill-site-nav {
+    display: none;
+  }
+}
+
+.distill-site-header {
+
+}
+
+.distill-site-footer {
+
+}
+
+
+/* Site Header */
+
+.distill-site-header {
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.distill-site-header .nav-left {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header .nav-left {
+    margin-left: 0;
+  }
+}
+
+
+.distill-site-header .nav-right {
+  float: right;
+  margin-right: 8px;
+}
+
+.distill-site-header a,
+.distill-site-header .title {
+  display: inline-block;
+  text-align: center;
+  padding: 14px 10px 14px 10px;
+}
+
+.distill-site-header .title {
+  font-size: 18px;
+  min-width: 150px;
+}
+
+.distill-site-header .logo {
+  padding: 0;
+}
+
+.distill-site-header .logo img {
+  display: none;
+  max-height: 20px;
+  width: auto;
+  margin-bottom: -4px;
+}
+
+.distill-site-header .nav-image img {
+  max-height: 18px;
+  width: auto;
+  display: inline-block;
+  margin-bottom: -3px;
+}
+
+
+
+@media screen and (min-width: 1000px) {
+  .distill-site-header .logo img {
+    display: inline-block;
+  }
+  .distill-site-header .nav-left {
+    margin-left: 20px;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 20px;
+  }
+  .distill-site-header .title {
+    padding-left: 12px;
+  }
+}
+
+
+.distill-site-header .nav-toggle {
+  display: none;
+}
+
+.nav-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.nav-dropdown .nav-dropbtn {
+  border: none;
+  outline: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 16px 10px;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+  margin-top: 1px;
+  z-index: 2;
+}
+
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  z-index: 1;
+  margin-top: 2px;
+  white-space: nowrap;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.nav-dropdown-content hr {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-dropdown-active {
+  display: block;
+}
+
+.nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+  color: black;
+  padding: 6px 24px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.nav-dropdown-content .nav-dropdown-header {
+  display: block;
+  padding: 5px 24px;
+  padding-bottom: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #999999;
+  white-space: nowrap;
+}
+
+.nav-dropdown:hover .nav-dropbtn {
+  color: white;
+}
+
+.nav-dropdown-content a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.nav-right .nav-dropdown-content {
+  margin-left: -45%;
+  right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+  .distill-site-header a.nav-toggle {
+    float: right;
+    display: block;
+  }
+  .distill-site-header .title {
+    margin-left: 0;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 0;
+  }
+  .distill-site-header {
+    overflow: hidden;
+  }
+  .nav-right .nav-dropdown-content {
+    margin-left: 0;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-header.responsive {position: relative; min-height: 500px; }
+  .distill-site-header.responsive a.nav-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .distill-site-header.responsive a,
+  .distill-site-header.responsive .nav-dropdown {
+    display: block;
+    text-align: left;
+  }
+  .distill-site-header.responsive .nav-left,
+  .distill-site-header.responsive .nav-right {
+    width: 100%;
+  }
+  .distill-site-header.responsive .nav-dropdown {float: none;}
+  .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+  .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* Site Footer */
+
+.distill-site-footer {
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 3;
+  margin-top: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+/* Headroom */
+
+d-title {
+  padding-top: 6rem;
+}
+
+@media print {
+  d-title {
+    padding-top: 4rem;
+  }
+}
+
+.headroom {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.headroom--transition {
+  transition: all .4s ease-in-out;
+}
+
+.headroom--unpinned {
+  top: -100px;
+}
+
+.headroom--pinned {
+  top: 0;
+}
+
+/* adjust viewport for navbar height */
+/* helps vertically center bootstrap (non-distill) content */
+.min-vh-100 {
+  min-height: calc(100vh - 100px) !important;
+}
+
+</style>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+<script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
+<script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
+<script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
+
+<script type="application/javascript">
+
+function getMeta(metaName) {
+  var metas = document.getElementsByTagName('meta');
+  for (let i = 0; i < metas.length; i++) {
+    if (metas[i].getAttribute('name') === metaName) {
+      return metas[i].getAttribute('content');
+    }
+  }
+  return '';
+}
+
+function offsetURL(url) {
+  var offset = getMeta('distill:offset');
+  return offset ? offset + '/' + url : url;
+}
+
+function createFuseIndex() {
+
+  // create fuse index
+  var options = {
+    keys: [
+      { name: 'title', weight: 20 },
+      { name: 'categories', weight: 15 },
+      { name: 'description', weight: 10 },
+      { name: 'contents', weight: 5 },
+    ],
+    ignoreLocation: true,
+    threshold: 0
+  };
+  var fuse = new window.Fuse([], options);
+
+  // fetch the main search.json
+  return fetch(offsetURL('search.json'))
+    .then(function(response) {
+      if (response.status == 200) {
+        return response.json().then(function(json) {
+          // index main articles
+          json.articles.forEach(function(article) {
+            fuse.add(article);
+          });
+          // download collections and index their articles
+          return Promise.all(json.collections.map(function(collection) {
+            return fetch(offsetURL(collection)).then(function(response) {
+              if (response.status === 200) {
+                return response.json().then(function(articles) {
+                  articles.forEach(function(article) {
+                    fuse.add(article);
+                  });
+                })
+              } else {
+                return Promise.reject(
+                  new Error('Unexpected status from search index request: ' +
+                            response.status)
+                );
+              }
+            });
+          })).then(function() {
+            return fuse;
+          });
+        });
+
+      } else {
+        return Promise.reject(
+          new Error('Unexpected status from search index request: ' +
+                      response.status)
+        );
+      }
+    });
+}
+
+window.document.addEventListener("DOMContentLoaded", function (event) {
+
+  // get search element (bail if we don't have one)
+  var searchEl = window.document.getElementById('distill-search');
+  if (!searchEl)
+    return;
+
+  createFuseIndex()
+    .then(function(fuse) {
+
+      // make search box visible
+      searchEl.classList.remove('hidden');
+
+      // initialize autocomplete
+      var options = {
+        autoselect: true,
+        hint: false,
+        minLength: 2,
+      };
+      window.autocomplete(searchEl, options, [{
+        source: function(query, callback) {
+          const searchOptions = {
+            isCaseSensitive: false,
+            shouldSort: true,
+            minMatchCharLength: 2,
+            limit: 10,
+          };
+          var results = fuse.search(query, searchOptions);
+          callback(results
+            .map(function(result) { return result.item; })
+          );
+        },
+        templates: {
+          suggestion: function(suggestion) {
+            var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+              ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+              : '';
+            var html = `
+              <div class="search-item">
+                <h3>${suggestion.title}</h3>
+                <div class="search-item-description">
+                  ${suggestion.description || ''}
+                </div>
+                <div class="search-item-preview">
+                  ${img}
+                </div>
+              </div>
+            `;
+            return html;
+          }
+        }
+      }]).on('autocomplete:selected', function(event, suggestion) {
+        window.location.href = offsetURL(suggestion.path);
+      });
+      // remove inline display style on autocompleter (we want to
+      // manage responsive display via css)
+      $('.algolia-autocomplete').css("display", "");
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+
+});
+
+</script>
+
+<style type="text/css">
+
+.nav-search {
+  font-size: x-small;
+}
+
+/* Algolioa Autocomplete */
+
+.algolia-autocomplete {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: sub;
+  background-color: white;
+  color: black;
+  padding: 6px;
+  padding-top: 8px;
+  padding-bottom: 0;
+  border-radius: 6px;
+  border: 1px #0F2E3D solid;
+  width: 180px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-nav .algolia-autocomplete {
+    display: none;
+    visibility: hidden;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete {
+    display: inline-block;
+    visibility: visible;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
+    margin-left: 0;
+    width: 400px;
+    max-height: 400px;
+  }
+}
+
+.algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+  width: 90%;
+  outline: none;
+  border: none;
+}
+
+.algolia-autocomplete .aa-hint {
+  color: #999;
+}
+.algolia-autocomplete .aa-dropdown-menu {
+  width: 550px;
+  max-height: 70vh;
+  overflow-x: visible;
+  overflow-y: scroll;
+  padding: 5px;
+  margin-top: 3px;
+  margin-left: -150px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #999;
+  border-top: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+  cursor: pointer;
+  padding: 5px 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
+  border-bottom: none;
+  margin-bottom: 2px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
+  overflow: hidden;
+  font-size: 0.8em;
+  line-height: 1.4em;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+  font-size: 1rem;
+  margin-block-start: 0;
+  margin-block-end: 5px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
+  display: inline-block;
+  overflow: hidden;
+  height: 2.8em;
+  width: 80%;
+  margin-right: 4%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
+  display: inline-block;
+  width: 15%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
+  height: 3em;
+  width: auto;
+  display: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
+  display: initial;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+  background-color: #eee;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+</style>
+
+
+<!--/radix_placeholder_navigation_in_header-->
+<!--radix_placeholder_site_in_header-->
+<!--/radix_placeholder_site_in_header-->
+
+<style type="text/css">
+body {
+  padding-top: 60px;
+}
+</style>
+<script src="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/pandoc/header-attrs.js"></script>
+<script src="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/jquery/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/bootstrap/js/bootstrap.min.js"></script>
+<script src="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/bootstrap/shim/html5shiv.min.js"></script>
+<script src="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/navigation-1.1/tabsets.js"></script>
+<link href="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/highlightjs/default.css" rel="stylesheet" />
+<script src="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/highlightjs/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a href="index.html" class="title">take-distill</a>
+</div>
+<div class="nav-right">
+<a href="index.html">Home</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Portfolio
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="review_0305.html">0305 review</a>
+<a href="0409 HW1 박태익.pdf">HW1</a>
+<a href="R 단축키.hwp">R 단축키 출력용</a>
+<a href="TS.html">Time series</a>
+</div>
+</div>
+<a href="about.html">About</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Portfolio
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="review_0305.html">0305 review</a>
+    </li>
+    <li>
+      <a href="0409 HW1 박태익.pdf">HW1</a>
+    </li>
+    <li>
+      <a href="R 단축키.hwp">R 단축키 출력용</a>
+    </li>
+    <li>
+      <a href="TS.html">Time series</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">여기도 부동산</h1>
+
+</div>
+
+
+<p><br />
+</p>
+<div id="ameshousing의-집값을-맞춰보자" class="section level1">
+<h1>AmesHousing의 집값을 맞춰보자</h1>
+<p><br />
+</p>
+<div id="개요" class="section level3">
+<h3>1. 개요</h3>
+<ul>
+<li>AmesHousing package내 Ames_raw 데이터를 토대로,<br />
+여러 변수를 분석하여 집값을 예측하는 모델을 만들기</li>
+</ul>
+<p><br />
+</p>
+</div>
+<div id="준비" class="section level3">
+<h3>2. 준비</h3>
+<pre class="r"><code>library(AmesHousing)
+library(rmarkdown)
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.1.2     ✓ dplyr   1.0.6
+## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.1</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(dplyr)
+library(ggplot2)</code></pre>
+<p><br />
+</p>
+</div>
+<div id="데이터-둘러보기" class="section level3">
+<h3>3. 데이터 둘러보기</h3>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>데이터 규모(행, 열)는?</li>
+</ol></li>
+</ul>
+<pre class="r"><code>dim(ames_raw)</code></pre>
+<pre><code>## [1] 2930   82</code></pre>
+<blockquote>
+<p><code>소결론</code> : 열, 즉 변수가 너무 많다.<br />
+→ 어떤 변수가 집값에 어떻게 영향을 줬을지 쉽게 찾기 어려움.<br />
+→ 우선, 집값 자체의 분포를 먼저 살펴 보자.</p>
+</blockquote>
+<ul>
+<li><ol start="2" style="list-style-type: decimal">
+<li>집값의 분포는?</li>
+</ol></li>
+</ul>
+<pre class="r"><code>summary(ames_raw$SalePrice)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   12789  129500  160000  180796  213500  755000</code></pre>
+<pre class="r"><code>ggplot(ames_raw, aes(x = SalePrice)) + 
+  geom_histogram(bins=100)</code></pre>
+<p><img src="Ames_raw_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<blockquote>
+<p><code>소결론</code> : (1) 평균 18만으로 12.8만부터 최대 75.5만까지 분포한다.<br />
+(2) 오른쪽 꼬리가 긴 것을 보면 집 중에서 엄청 비싼 집(아웃라이어)가 일부 있을 것이다.</p>
+</blockquote>
+<p><br />
+</p>
+</div>
+<div id="어떤-변수가-집값에-영향을-주는가" class="section level3">
+<h3>4. 어떤 변수가 집값에 영향을 주는가?</h3>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li><dl>
+<dt>총 변수는 79개\</dt>
+<dd>82개 열 중, 종속변수인 SalePrice와 순서인 Order, 식별자인 PID를 제외.
+</dd>
+</dl></li>
+<li>각 변수를</li>
+</ol>
+<ul>
+<li>연속형 변수(예 : <code>Lot Area</code>)</li>
+<li>분류형 변수(예 : Neighborhood, <code>Sale Type</code>)</li>
+<li>점수형 변수(예 : <code>Overall Qual</code>) 로 나누고,</li>
+</ul>
+<p><br />
+</p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>분류형 변수는 하위 분류별 집값 평균을 분석 → 하위 분류별 평균 차이가 크지 않으면 해당 변수는 유의미하지 않음</p></li>
+<li><p>연속형과 점수형 변수는 집값과 상관도를 분석</p></li>
+</ol>
+<p>하면 좋겠는데, 변수를 요약하는 코드는 뭘까?</p></li>
+<li><p>일단, 변수가 뭐뭐 있는지 살펴보면,</p></li>
+</ul>
+<pre class="r"><code>glimpse(ames_raw)</code></pre>
+<pre><code>## Rows: 2,930
+## Columns: 82
+## $ Order             &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1…
+## $ PID               &lt;chr&gt; &quot;0526301100&quot;, &quot;0526350040&quot;, &quot;0526351010&quot;, &quot;052635303…
+## $ `MS SubClass`     &lt;chr&gt; &quot;020&quot;, &quot;020&quot;, &quot;020&quot;, &quot;020&quot;, &quot;060&quot;, &quot;060&quot;, &quot;120&quot;, &quot;12…
+## $ `MS Zoning`       &lt;chr&gt; &quot;RL&quot;, &quot;RH&quot;, &quot;RL&quot;, &quot;RL&quot;, &quot;RL&quot;, &quot;RL&quot;, &quot;RL&quot;, &quot;RL&quot;, &quot;RL&quot;…
+## $ `Lot Frontage`    &lt;int&gt; 141, 80, 81, 93, 74, 78, 41, 43, 39, 60, 75, NA, 63,…
+## $ `Lot Area`        &lt;int&gt; 31770, 11622, 14267, 11160, 13830, 9978, 4920, 5005,…
+## $ Street            &lt;chr&gt; &quot;Pave&quot;, &quot;Pave&quot;, &quot;Pave&quot;, &quot;Pave&quot;, &quot;Pave&quot;, &quot;Pave&quot;, &quot;Pav…
+## $ Alley             &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ `Lot Shape`       &lt;chr&gt; &quot;IR1&quot;, &quot;Reg&quot;, &quot;IR1&quot;, &quot;Reg&quot;, &quot;IR1&quot;, &quot;IR1&quot;, &quot;Reg&quot;, &quot;IR…
+## $ `Land Contour`    &lt;chr&gt; &quot;Lvl&quot;, &quot;Lvl&quot;, &quot;Lvl&quot;, &quot;Lvl&quot;, &quot;Lvl&quot;, &quot;Lvl&quot;, &quot;Lvl&quot;, &quot;HL…
+## $ Utilities         &lt;chr&gt; &quot;AllPub&quot;, &quot;AllPub&quot;, &quot;AllPub&quot;, &quot;AllPub&quot;, &quot;AllPub&quot;, &quot;A…
+## $ `Lot Config`      &lt;chr&gt; &quot;Corner&quot;, &quot;Inside&quot;, &quot;Corner&quot;, &quot;Corner&quot;, &quot;Inside&quot;, &quot;I…
+## $ `Land Slope`      &lt;chr&gt; &quot;Gtl&quot;, &quot;Gtl&quot;, &quot;Gtl&quot;, &quot;Gtl&quot;, &quot;Gtl&quot;, &quot;Gtl&quot;, &quot;Gtl&quot;, &quot;Gt…
+## $ Neighborhood      &lt;chr&gt; &quot;NAmes&quot;, &quot;NAmes&quot;, &quot;NAmes&quot;, &quot;NAmes&quot;, &quot;Gilbert&quot;, &quot;Gilb…
+## $ `Condition 1`     &lt;chr&gt; &quot;Norm&quot;, &quot;Feedr&quot;, &quot;Norm&quot;, &quot;Norm&quot;, &quot;Norm&quot;, &quot;Norm&quot;, &quot;No…
+## $ `Condition 2`     &lt;chr&gt; &quot;Norm&quot;, &quot;Norm&quot;, &quot;Norm&quot;, &quot;Norm&quot;, &quot;Norm&quot;, &quot;Norm&quot;, &quot;Nor…
+## $ `Bldg Type`       &lt;chr&gt; &quot;1Fam&quot;, &quot;1Fam&quot;, &quot;1Fam&quot;, &quot;1Fam&quot;, &quot;1Fam&quot;, &quot;1Fam&quot;, &quot;Twn…
+## $ `House Style`     &lt;chr&gt; &quot;1Story&quot;, &quot;1Story&quot;, &quot;1Story&quot;, &quot;1Story&quot;, &quot;2Story&quot;, &quot;2…
+## $ `Overall Qual`    &lt;int&gt; 6, 5, 6, 7, 5, 6, 8, 8, 8, 7, 6, 6, 6, 7, 8, 8, 8, 9…
+## $ `Overall Cond`    &lt;int&gt; 5, 6, 6, 5, 5, 6, 5, 5, 5, 5, 5, 7, 5, 5, 5, 5, 7, 2…
+## $ `Year Built`      &lt;int&gt; 1960, 1961, 1958, 1968, 1997, 1998, 2001, 1992, 1995…
+## $ `Year Remod/Add`  &lt;int&gt; 1960, 1961, 1958, 1968, 1998, 1998, 2001, 1992, 1996…
+## $ `Roof Style`      &lt;chr&gt; &quot;Hip&quot;, &quot;Gable&quot;, &quot;Hip&quot;, &quot;Hip&quot;, &quot;Gable&quot;, &quot;Gable&quot;, &quot;Gab…
+## $ `Roof Matl`       &lt;chr&gt; &quot;CompShg&quot;, &quot;CompShg&quot;, &quot;CompShg&quot;, &quot;CompShg&quot;, &quot;CompShg…
+## $ `Exterior 1st`    &lt;chr&gt; &quot;BrkFace&quot;, &quot;VinylSd&quot;, &quot;Wd Sdng&quot;, &quot;BrkFace&quot;, &quot;VinylSd…
+## $ `Exterior 2nd`    &lt;chr&gt; &quot;Plywood&quot;, &quot;VinylSd&quot;, &quot;Wd Sdng&quot;, &quot;BrkFace&quot;, &quot;VinylSd…
+## $ `Mas Vnr Type`    &lt;chr&gt; &quot;Stone&quot;, &quot;None&quot;, &quot;BrkFace&quot;, &quot;None&quot;, &quot;None&quot;, &quot;BrkFace…
+## $ `Mas Vnr Area`    &lt;int&gt; 112, 0, 108, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 60…
+## $ `Exter Qual`      &lt;chr&gt; &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;Gd&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;Gd&quot;, &quot;Gd&quot;, &quot;Gd&quot;…
+## $ `Exter Cond`      &lt;chr&gt; &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;…
+## $ Foundation        &lt;chr&gt; &quot;CBlock&quot;, &quot;CBlock&quot;, &quot;CBlock&quot;, &quot;CBlock&quot;, &quot;PConc&quot;, &quot;PC…
+## $ `Bsmt Qual`       &lt;chr&gt; &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;Gd&quot;, &quot;TA&quot;, &quot;Gd&quot;, &quot;Gd&quot;, &quot;Gd&quot;…
+## $ `Bsmt Cond`       &lt;chr&gt; &quot;Gd&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;…
+## $ `Bsmt Exposure`   &lt;chr&gt; &quot;Gd&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;Mn&quot;, &quot;No&quot;, &quot;No&quot;…
+## $ `BsmtFin Type 1`  &lt;chr&gt; &quot;BLQ&quot;, &quot;Rec&quot;, &quot;ALQ&quot;, &quot;ALQ&quot;, &quot;GLQ&quot;, &quot;GLQ&quot;, &quot;GLQ&quot;, &quot;AL…
+## $ `BsmtFin SF 1`    &lt;int&gt; 639, 468, 923, 1065, 791, 602, 616, 263, 1180, 0, 0,…
+## $ `BsmtFin Type 2`  &lt;chr&gt; &quot;Unf&quot;, &quot;LwQ&quot;, &quot;Unf&quot;, &quot;Unf&quot;, &quot;Unf&quot;, &quot;Unf&quot;, &quot;Unf&quot;, &quot;Un…
+## $ `BsmtFin SF 2`    &lt;int&gt; 0, 144, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1120, 0,…
+## $ `Bsmt Unf SF`     &lt;int&gt; 441, 270, 406, 1045, 137, 324, 722, 1017, 415, 994, …
+## $ `Total Bsmt SF`   &lt;int&gt; 1080, 882, 1329, 2110, 928, 926, 1338, 1280, 1595, 9…
+## $ Heating           &lt;chr&gt; &quot;GasA&quot;, &quot;GasA&quot;, &quot;GasA&quot;, &quot;GasA&quot;, &quot;GasA&quot;, &quot;GasA&quot;, &quot;Gas…
+## $ `Heating QC`      &lt;chr&gt; &quot;Fa&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;Ex&quot;, &quot;Gd&quot;, &quot;Ex&quot;, &quot;Ex&quot;, &quot;Ex&quot;, &quot;Ex&quot;…
+## $ `Central Air`     &lt;chr&gt; &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y…
+## $ Electrical        &lt;chr&gt; &quot;SBrkr&quot;, &quot;SBrkr&quot;, &quot;SBrkr&quot;, &quot;SBrkr&quot;, &quot;SBrkr&quot;, &quot;SBrkr&quot;…
+## $ `1st Flr SF`      &lt;int&gt; 1656, 896, 1329, 2110, 928, 926, 1338, 1280, 1616, 1…
+## $ `2nd Flr SF`      &lt;int&gt; 0, 0, 0, 0, 701, 678, 0, 0, 0, 776, 892, 0, 676, 0, …
+## $ `Low Qual Fin SF` &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ `Gr Liv Area`     &lt;int&gt; 1656, 896, 1329, 2110, 1629, 1604, 1338, 1280, 1616,…
+## $ `Bsmt Full Bath`  &lt;int&gt; 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1…
+## $ `Bsmt Half Bath`  &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ `Full Bath`       &lt;int&gt; 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 3, 2, 1…
+## $ `Half Bath`       &lt;int&gt; 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1…
+## $ `Bedroom AbvGr`   &lt;int&gt; 3, 2, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 2, 1, 4, 4, 1…
+## $ `Kitchen AbvGr`   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+## $ `Kitchen Qual`    &lt;chr&gt; &quot;TA&quot;, &quot;TA&quot;, &quot;Gd&quot;, &quot;Ex&quot;, &quot;TA&quot;, &quot;Gd&quot;, &quot;Gd&quot;, &quot;Gd&quot;, &quot;Gd&quot;…
+## $ `TotRms AbvGrd`   &lt;int&gt; 7, 5, 6, 8, 6, 7, 6, 5, 5, 7, 7, 6, 7, 5, 4, 12, 8, …
+## $ Functional        &lt;chr&gt; &quot;Typ&quot;, &quot;Typ&quot;, &quot;Typ&quot;, &quot;Typ&quot;, &quot;Typ&quot;, &quot;Typ&quot;, &quot;Typ&quot;, &quot;Ty…
+## $ Fireplaces        &lt;int&gt; 2, 0, 0, 2, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1…
+## $ `Fireplace Qu`    &lt;chr&gt; &quot;Gd&quot;, NA, NA, &quot;TA&quot;, &quot;TA&quot;, &quot;Gd&quot;, NA, NA, &quot;TA&quot;, &quot;TA&quot;, …
+## $ `Garage Type`     &lt;chr&gt; &quot;Attchd&quot;, &quot;Attchd&quot;, &quot;Attchd&quot;, &quot;Attchd&quot;, &quot;Attchd&quot;, &quot;A…
+## $ `Garage Yr Blt`   &lt;int&gt; 1960, 1961, 1958, 1968, 1997, 1998, 2001, 1992, 1995…
+## $ `Garage Finish`   &lt;chr&gt; &quot;Fin&quot;, &quot;Unf&quot;, &quot;Unf&quot;, &quot;Fin&quot;, &quot;Fin&quot;, &quot;Fin&quot;, &quot;Fin&quot;, &quot;RF…
+## $ `Garage Cars`     &lt;int&gt; 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 3…
+## $ `Garage Area`     &lt;int&gt; 528, 730, 312, 522, 482, 470, 582, 506, 608, 442, 44…
+## $ `Garage Qual`     &lt;chr&gt; &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;…
+## $ `Garage Cond`     &lt;chr&gt; &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;, &quot;TA&quot;…
+## $ `Paved Drive`     &lt;chr&gt; &quot;P&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y…
+## $ `Wood Deck SF`    &lt;int&gt; 210, 140, 393, 0, 212, 360, 0, 0, 237, 140, 157, 483…
+## $ `Open Porch SF`   &lt;int&gt; 62, 0, 36, 0, 34, 36, 0, 82, 152, 60, 84, 21, 75, 0,…
+## $ `Enclosed Porch`  &lt;int&gt; 0, 0, 0, 0, 0, 0, 170, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ `3Ssn Porch`      &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ `Screen Porch`    &lt;int&gt; 0, 120, 0, 0, 0, 0, 0, 144, 0, 0, 0, 0, 0, 0, 140, 2…
+## $ `Pool Area`       &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ `Pool QC`         &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Fence             &lt;chr&gt; NA, &quot;MnPrv&quot;, NA, NA, &quot;MnPrv&quot;, NA, NA, NA, NA, NA, NA…
+## $ `Misc Feature`    &lt;chr&gt; NA, NA, &quot;Gar2&quot;, NA, NA, NA, NA, NA, NA, NA, NA, &quot;She…
+## $ `Misc Val`        &lt;int&gt; 0, 0, 12500, 0, 0, 0, 0, 0, 0, 0, 0, 500, 0, 0, 0, 0…
+## $ `Mo Sold`         &lt;int&gt; 5, 6, 6, 4, 3, 6, 4, 1, 3, 6, 4, 3, 5, 2, 6, 6, 6, 6…
+## $ `Yr Sold`         &lt;int&gt; 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010…
+## $ `Sale Type`       &lt;chr&gt; &quot;WD &quot;, &quot;WD &quot;, &quot;WD &quot;, &quot;WD &quot;, &quot;WD &quot;, &quot;WD &quot;, &quot;WD &quot;, &quot;WD…
+## $ `Sale Condition`  &lt;chr&gt; &quot;Normal&quot;, &quot;Normal&quot;, &quot;Normal&quot;, &quot;Normal&quot;, &quot;Normal&quot;, &quot;N…
+## $ SalePrice         &lt;int&gt; 215000, 105000, 172000, 244000, 189900, 195500, 2135…</code></pre>
+<ul>
+<li><p>이 중 의미를 유추해볼 수 있는 몇 개의 변수를 뽑아서 집값 박스그래프를 보면,</p>
+<ul>
+<li>분류형 변수(예 : <code>House Style</code>, <code>Sale Type</code>)</li>
+<li>점수형 변수(예 : <code>Overall Qual</code>)</li>
+</ul></li>
+<li><ol style="list-style-type: upper-alpha">
+<li><code>House Style</code> 별 분포</li>
+</ol></li>
+</ul>
+<pre class="r"><code>ames_raw %&gt;% 
+  group_by(`House Style`) %&gt;% 
+  summarize(mean(SalePrice, na.rm = TRUE))</code></pre>
+<pre><code>## # A tibble: 8 x 2
+##   `House Style` `mean(SalePrice, na.rm = TRUE)`
+##   &lt;chr&gt;                                   &lt;dbl&gt;
+## 1 1.5Fin                                137530.
+## 2 1.5Unf                                109663.
+## 3 1Story                                178700.
+## 4 2.5Fin                                220000 
+## 5 2.5Unf                                177158.
+## 6 2Story                                206990.
+## 7 SFoyer                                143473.
+## 8 SLvl                                  165527.</code></pre>
+<pre class="r"><code>ggplot(ames_raw, aes(x = `House Style`, y = SalePrice, fill=`House Style`)) + geom_boxplot(alpha=0.5,show.legend = TRUE) +
+  theme(legend.position=&quot;none&quot;) + stat_summary(geom=&#39;point&#39;,fun=mean,shape=23,size=3)</code></pre>
+<p><img src="Ames_raw_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<ul>
+<li><ol start="2" style="list-style-type: upper-alpha">
+<li><code>Sale Type</code> 별 분포</li>
+</ol></li>
+</ul>
+<pre class="r"><code>ames_raw %&gt;% 
+  group_by(`Sale Type`) %&gt;% 
+  summarize(mean(SalePrice, na.rm = TRUE))</code></pre>
+<pre><code>## # A tibble: 10 x 2
+##    `Sale Type` `mean(SalePrice, na.rm = TRUE)`
+##    &lt;chr&gt;                                 &lt;dbl&gt;
+##  1 &quot;COD&quot;                               132248.
+##  2 &quot;Con&quot;                               224446 
+##  3 &quot;ConLD&quot;                             125748.
+##  4 &quot;ConLI&quot;                             180106.
+##  5 &quot;ConLw&quot;                             121938.
+##  6 &quot;CWD&quot;                               184238.
+##  7 &quot;New&quot;                               275751.
+##  8 &quot;Oth&quot;                               114920.
+##  9 &quot;VWD&quot;                               137000 
+## 10 &quot;WD &quot;                               174362.</code></pre>
+<pre class="r"><code>ggplot(ames_raw, aes(x = `Sale Type`, y = SalePrice, fill=`Sale Type`)) + geom_boxplot(alpha=0.5,show.legend = TRUE) +
+  theme(legend.position=&quot;none&quot;) + stat_summary(geom=&#39;point&#39;,fun=mean,shape=23,size=3)</code></pre>
+<p><img src="Ames_raw_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<ul>
+<li><ol start="3" style="list-style-type: upper-alpha">
+<li><code>Overall Qual</code> 별 분포</li>
+</ol></li>
+</ul>
+<pre class="r"><code>ames_raw %&gt;% 
+  group_by(`Overall Qual`) %&gt;% 
+  summarize(mean(SalePrice, na.rm = TRUE))</code></pre>
+<pre><code>## # A tibble: 10 x 2
+##    `Overall Qual` `mean(SalePrice, na.rm = TRUE)`
+##             &lt;int&gt;                           &lt;dbl&gt;
+##  1              1                          48725 
+##  2              2                          52325.
+##  3              3                          83186.
+##  4              4                         106485.
+##  5              5                         134753.
+##  6              6                         162130.
+##  7              7                         205026.
+##  8              8                         270914.
+##  9              9                         368337.
+## 10             10                         450217.</code></pre>
+<pre class="r"><code>ggplot(ames_raw, aes(x =`Overall Qual`, y = SalePrice)) +  
+  geom_point(alpha=0.1) +
+   stat_summary(geom=&#39;point&#39;,fun=mean,shape=23,size=3)</code></pre>
+<p><img src="Ames_raw_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><br />
+</p>
+</div>
+<div id="더-해보고-싶은-것" class="section level3">
+<h3>5. 더 해보고 싶은 것</h3>
+<ul>
+<li>깃허브 연결하면 왜 마크다운이 안되는가…</li>
+<li>전체 변수를 종류별로 뽑아내는 방법은? : select를 어떻게 잘 쓰면 될지도.</li>
+<li>변수별 통계(피벗테이블)</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>변수</th>
+<th>하위값</th>
+<th>개수</th>
+<th>집값평균</th>
+<th>편차</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>`House Style`</td>
+<td>1.5Fin</td>
+<td>##</td>
+<td>###</td>
+<td>##</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>1.5Unf</td>
+<td>##</td>
+<td>###</td>
+<td>##</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>1Story</td>
+<td>##</td>
+<td>###</td>
+<td>##</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+</p>
+</div>
+<div id="집값-맞추기" class="section level3">
+<h3>6. 집값 맞추기</h3>
+<ul>
+<li>언젠간 되겠지?</li>
+</ul>
+</div>
+</div>
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

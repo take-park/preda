@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="take" />
+
+
+<title>0402</title>
+
+<!--radix_placeholder_navigation_in_header-->
+<meta name="distill:offset" content=""/>
+
+<script type="application/javascript">
+
+  window.headroom_prevent_pin = false;
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+
+    // initialize headroom for banner
+    var header = $('header').get(0);
+    var headerHeight = header.offsetHeight;
+    var headroom = new Headroom(header, {
+      tolerance: 5,
+      onPin : function() {
+        if (window.headroom_prevent_pin) {
+          window.headroom_prevent_pin = false;
+          headroom.unpin();
+        }
+      }
+    });
+    headroom.init();
+    if(window.location.hash)
+      headroom.unpin();
+    $(header).addClass('headroom--transition');
+
+    // offset scroll location for banner on hash change
+    // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+    window.addEventListener("hashchange", function(event) {
+      window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+    });
+
+    // responsive menu
+    $('.distill-site-header').each(function(i, val) {
+      var topnav = $(this);
+      var toggle = topnav.find('.nav-toggle');
+      toggle.on('click', function() {
+        topnav.toggleClass('responsive');
+      });
+    });
+
+    // nav dropdowns
+    $('.nav-dropbtn').click(function(e) {
+      $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+      $(this).parent().siblings('.nav-dropdown')
+         .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $("body").click(function(e){
+      $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $(".nav-dropdown").click(function(e){
+      e.stopPropagation();
+    });
+  });
+</script>
+
+<style type="text/css">
+
+/* Theme (user-documented overrideables for nav appearance) */
+
+.distill-site-nav {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #0F2E3D;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.distill-site-nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.distill-site-nav a:hover {
+  color: white;
+}
+
+@media print {
+  .distill-site-nav {
+    display: none;
+  }
+}
+
+.distill-site-header {
+
+}
+
+.distill-site-footer {
+
+}
+
+
+/* Site Header */
+
+.distill-site-header {
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.distill-site-header .nav-left {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header .nav-left {
+    margin-left: 0;
+  }
+}
+
+
+.distill-site-header .nav-right {
+  float: right;
+  margin-right: 8px;
+}
+
+.distill-site-header a,
+.distill-site-header .title {
+  display: inline-block;
+  text-align: center;
+  padding: 14px 10px 14px 10px;
+}
+
+.distill-site-header .title {
+  font-size: 18px;
+  min-width: 150px;
+}
+
+.distill-site-header .logo {
+  padding: 0;
+}
+
+.distill-site-header .logo img {
+  display: none;
+  max-height: 20px;
+  width: auto;
+  margin-bottom: -4px;
+}
+
+.distill-site-header .nav-image img {
+  max-height: 18px;
+  width: auto;
+  display: inline-block;
+  margin-bottom: -3px;
+}
+
+
+
+@media screen and (min-width: 1000px) {
+  .distill-site-header .logo img {
+    display: inline-block;
+  }
+  .distill-site-header .nav-left {
+    margin-left: 20px;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 20px;
+  }
+  .distill-site-header .title {
+    padding-left: 12px;
+  }
+}
+
+
+.distill-site-header .nav-toggle {
+  display: none;
+}
+
+.nav-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.nav-dropdown .nav-dropbtn {
+  border: none;
+  outline: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 16px 10px;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+  margin-top: 1px;
+  z-index: 2;
+}
+
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  z-index: 1;
+  margin-top: 2px;
+  white-space: nowrap;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.nav-dropdown-content hr {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-dropdown-active {
+  display: block;
+}
+
+.nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+  color: black;
+  padding: 6px 24px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.nav-dropdown-content .nav-dropdown-header {
+  display: block;
+  padding: 5px 24px;
+  padding-bottom: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #999999;
+  white-space: nowrap;
+}
+
+.nav-dropdown:hover .nav-dropbtn {
+  color: white;
+}
+
+.nav-dropdown-content a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.nav-right .nav-dropdown-content {
+  margin-left: -45%;
+  right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+  .distill-site-header a.nav-toggle {
+    float: right;
+    display: block;
+  }
+  .distill-site-header .title {
+    margin-left: 0;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 0;
+  }
+  .distill-site-header {
+    overflow: hidden;
+  }
+  .nav-right .nav-dropdown-content {
+    margin-left: 0;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-header.responsive {position: relative; min-height: 500px; }
+  .distill-site-header.responsive a.nav-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .distill-site-header.responsive a,
+  .distill-site-header.responsive .nav-dropdown {
+    display: block;
+    text-align: left;
+  }
+  .distill-site-header.responsive .nav-left,
+  .distill-site-header.responsive .nav-right {
+    width: 100%;
+  }
+  .distill-site-header.responsive .nav-dropdown {float: none;}
+  .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+  .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* Site Footer */
+
+.distill-site-footer {
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 3;
+  margin-top: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+/* Headroom */
+
+d-title {
+  padding-top: 6rem;
+}
+
+@media print {
+  d-title {
+    padding-top: 4rem;
+  }
+}
+
+.headroom {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.headroom--transition {
+  transition: all .4s ease-in-out;
+}
+
+.headroom--unpinned {
+  top: -100px;
+}
+
+.headroom--pinned {
+  top: 0;
+}
+
+/* adjust viewport for navbar height */
+/* helps vertically center bootstrap (non-distill) content */
+.min-vh-100 {
+  min-height: calc(100vh - 100px) !important;
+}
+
+</style>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+<script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
+<script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
+<script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
+
+<script type="application/javascript">
+
+function getMeta(metaName) {
+  var metas = document.getElementsByTagName('meta');
+  for (let i = 0; i < metas.length; i++) {
+    if (metas[i].getAttribute('name') === metaName) {
+      return metas[i].getAttribute('content');
+    }
+  }
+  return '';
+}
+
+function offsetURL(url) {
+  var offset = getMeta('distill:offset');
+  return offset ? offset + '/' + url : url;
+}
+
+function createFuseIndex() {
+
+  // create fuse index
+  var options = {
+    keys: [
+      { name: 'title', weight: 20 },
+      { name: 'categories', weight: 15 },
+      { name: 'description', weight: 10 },
+      { name: 'contents', weight: 5 },
+    ],
+    ignoreLocation: true,
+    threshold: 0
+  };
+  var fuse = new window.Fuse([], options);
+
+  // fetch the main search.json
+  return fetch(offsetURL('search.json'))
+    .then(function(response) {
+      if (response.status == 200) {
+        return response.json().then(function(json) {
+          // index main articles
+          json.articles.forEach(function(article) {
+            fuse.add(article);
+          });
+          // download collections and index their articles
+          return Promise.all(json.collections.map(function(collection) {
+            return fetch(offsetURL(collection)).then(function(response) {
+              if (response.status === 200) {
+                return response.json().then(function(articles) {
+                  articles.forEach(function(article) {
+                    fuse.add(article);
+                  });
+                })
+              } else {
+                return Promise.reject(
+                  new Error('Unexpected status from search index request: ' +
+                            response.status)
+                );
+              }
+            });
+          })).then(function() {
+            return fuse;
+          });
+        });
+
+      } else {
+        return Promise.reject(
+          new Error('Unexpected status from search index request: ' +
+                      response.status)
+        );
+      }
+    });
+}
+
+window.document.addEventListener("DOMContentLoaded", function (event) {
+
+  // get search element (bail if we don't have one)
+  var searchEl = window.document.getElementById('distill-search');
+  if (!searchEl)
+    return;
+
+  createFuseIndex()
+    .then(function(fuse) {
+
+      // make search box visible
+      searchEl.classList.remove('hidden');
+
+      // initialize autocomplete
+      var options = {
+        autoselect: true,
+        hint: false,
+        minLength: 2,
+      };
+      window.autocomplete(searchEl, options, [{
+        source: function(query, callback) {
+          const searchOptions = {
+            isCaseSensitive: false,
+            shouldSort: true,
+            minMatchCharLength: 2,
+            limit: 10,
+          };
+          var results = fuse.search(query, searchOptions);
+          callback(results
+            .map(function(result) { return result.item; })
+          );
+        },
+        templates: {
+          suggestion: function(suggestion) {
+            var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+              ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+              : '';
+            var html = `
+              <div class="search-item">
+                <h3>${suggestion.title}</h3>
+                <div class="search-item-description">
+                  ${suggestion.description || ''}
+                </div>
+                <div class="search-item-preview">
+                  ${img}
+                </div>
+              </div>
+            `;
+            return html;
+          }
+        }
+      }]).on('autocomplete:selected', function(event, suggestion) {
+        window.location.href = offsetURL(suggestion.path);
+      });
+      // remove inline display style on autocompleter (we want to
+      // manage responsive display via css)
+      $('.algolia-autocomplete').css("display", "");
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+
+});
+
+</script>
+
+<style type="text/css">
+
+.nav-search {
+  font-size: x-small;
+}
+
+/* Algolioa Autocomplete */
+
+.algolia-autocomplete {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: sub;
+  background-color: white;
+  color: black;
+  padding: 6px;
+  padding-top: 8px;
+  padding-bottom: 0;
+  border-radius: 6px;
+  border: 1px #0F2E3D solid;
+  width: 180px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-nav .algolia-autocomplete {
+    display: none;
+    visibility: hidden;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete {
+    display: inline-block;
+    visibility: visible;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
+    margin-left: 0;
+    width: 400px;
+    max-height: 400px;
+  }
+}
+
+.algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+  width: 90%;
+  outline: none;
+  border: none;
+}
+
+.algolia-autocomplete .aa-hint {
+  color: #999;
+}
+.algolia-autocomplete .aa-dropdown-menu {
+  width: 550px;
+  max-height: 70vh;
+  overflow-x: visible;
+  overflow-y: scroll;
+  padding: 5px;
+  margin-top: 3px;
+  margin-left: -150px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #999;
+  border-top: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+  cursor: pointer;
+  padding: 5px 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
+  border-bottom: none;
+  margin-bottom: 2px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
+  overflow: hidden;
+  font-size: 0.8em;
+  line-height: 1.4em;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+  font-size: 1rem;
+  margin-block-start: 0;
+  margin-block-end: 5px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
+  display: inline-block;
+  overflow: hidden;
+  height: 2.8em;
+  width: 80%;
+  margin-right: 4%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
+  display: inline-block;
+  width: 15%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
+  height: 3em;
+  width: auto;
+  display: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
+  display: initial;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+  background-color: #eee;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+</style>
+
+
+<!--/radix_placeholder_navigation_in_header-->
+<!--radix_placeholder_site_in_header-->
+<!--/radix_placeholder_site_in_header-->
+
+<style type="text/css">
+body {
+  padding-top: 60px;
+}
+</style>
+<script src="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/pandoc/header-attrs.js"></script>
+<script src="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/jquery/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/bootstrap/js/bootstrap.min.js"></script>
+<script src="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/bootstrap/shim/html5shiv.min.js"></script>
+<script src="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/navigation-1.1/tabsets.js"></script>
+<link href="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/highlightjs/default.css" rel="stylesheet" />
+<script src="/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0/rmarkdown/rmd/h/highlightjs/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a href="index.html" class="title">take-distill</a>
+</div>
+<div class="nav-right">
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">0402</h1>
+<h4 class="author">take</h4>
+<h4 class="date">2021 4 8</h4>
+
+</div>
+
+
+<div id="library" class="section level4">
+<h4>library</h4>
+<pre class="r"><code>library(tidymodels)</code></pre>
+<pre><code>## ── Attaching packages ────────────────────────────────────── tidymodels 0.1.3 ──</code></pre>
+<pre><code>## ✓ broom        0.7.6      ✓ recipes      0.1.16
+## ✓ dials        0.0.9      ✓ rsample      0.1.0 
+## ✓ dplyr        1.0.6      ✓ tibble       3.1.2 
+## ✓ ggplot2      3.3.3      ✓ tidyr        1.1.3 
+## ✓ infer        0.5.4      ✓ tune         0.1.5 
+## ✓ modeldata    0.1.0      ✓ workflows    0.2.2 
+## ✓ parsnip      0.1.5      ✓ workflowsets 0.0.2 
+## ✓ purrr        0.3.4      ✓ yardstick    0.0.8</code></pre>
+<pre><code>## ── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
+## x purrr::discard() masks scales::discard()
+## x dplyr::filter()  masks stats::filter()
+## x dplyr::lag()     masks stats::lag()
+## x recipes::step()  masks stats::step()
+## • Use tidymodels_prefer() to resolve common conflicts.</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+<pre><code>## ✓ readr   1.4.0     ✓ forcats 0.5.1
+## ✓ stringr 1.4.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x readr::col_factor() masks scales::col_factor()
+## x purrr::discard()    masks scales::discard()
+## x dplyr::filter()     masks stats::filter()
+## x stringr::fixed()    masks recipes::fixed()
+## x dplyr::lag()        masks stats::lag()
+## x readr::spec()       masks yardstick::spec()</code></pre>
+<pre class="r"><code>library(magrittr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;magrittr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     extract</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     set_names</code></pre>
+<pre class="r"><code>library(skimr)
+library(knitr)</code></pre>
+</div>
+<div id="교시-β-줄이기변수선택" class="section level2">
+<h2>1교시 : β 줄이기(변수선택) ————————</h2>
+<p>입력 변수의 수를 줄였을때의 장점<br />
+- 잡음(noise)를 제거해 모형의 정확도를 개선함<br />
+- 모형의 연산 속도가 빨라짐<br />
+- 다중공선성의 문제를 제거해 모형의 해석 능력을 향상시킴<br />
+ex) 나이, 생년은 같은 의미를 갖기 때문에 하나를 제거함<br />
+- 계수축소법에는 Ridge와 LASSO, Elastic Net이 있음</p>
+<div id="ridge능선-regression" class="section level3">
+<h3>1.1] Ridge(능선) regression</h3>
+<ul>
+<li><p>L2 norm(제곱합) 으로 표현<br />
+</p></li>
+<li><p><strong>λ가 클수록 β값들이 0으로 수렴</strong></p></li>
+<li><p>f(β;x,y) = (Y-Xβ)^T * (Y-Xβ) + λ*β^T * I * β<br />
+(단, X = 1더해진 x메트릭스)</p></li>
+<li><p>hat β(Ridge) = (X^T * X + λ*I)^{-1} * X^T * Y</p></li>
+</ul>
+</div>
+<div id="lasso-regression" class="section level3">
+<h3>1.2] LASSO regression</h3>
+<ul>
+<li><p>(Least Absolute Shrinkage and Selection Operator)<br />
+</p></li>
+<li><p>L1 norm(절대값 합) 으로 표현<br />
+</p></li>
+<li><p><strong>λ가 클수록 β값들이 0이 됨</strong></p></li>
+<li><p>f(β;x,y) = (Y-Xβ)^T * (Y-Xβ) + λ*│β│<br />
+</p></li>
+<li><p>hat β(LASSO) 수식으로 구하기 어려움<br />
+</p></li>
+</ul>
+<div id="공통점" class="section level4">
+<h4>공통점</h4>
+<ul>
+<li>계수축소법으로 잔차와 회귀계수를 최소화하는 최적화 문제임<br />
+</li>
+<li>즉 min SSE + f(β)의 목적함수를 푸는 문제임<br />
+</li>
+</ul>
+</div>
+<div id="차이점" class="section level4">
+<h4>차이점</h4>
+<ul>
+<li>Ridge는 계수가 0에 가깝게 축소되는데 비해<br />
+LASSO는 계수가 0으로 축소됨</li>
+<li>Rigde는 X가 전반적으로 비슷한 수준으로 영향을 미칠때 사용<br />
+LASSO는 X마다 영향력 편차가 큰 경우에 사용</li>
+</ul>
+<pre class="r"><code>knitr::include_graphics(&quot;lec6-1.png&quot;)</code></pre>
+<p><img src="lec6-1.png" width="70%" /></p>
+</div>
+</div>
+<div id="elastic-net" class="section level3">
+<h3>1.3] Elastic Net</h3>
+<ul>
+<li>L1 norm(절대값 합) L2 norm(제곱합) 둘 다 사용<br />
+</li>
+<li>R에서는 λ와 α를 써서 변형된 모델로 사용<br />
+</li>
+<li>f(β;x,y) = (Y-Xβ)^T * (Y-Xβ) + λ*│β│  + λ*β^T * β<br />
+</li>
+</ul>
+<pre class="r"><code>knitr::include_graphics(&quot;lec6-2.png&quot;)</code></pre>
+<p><img src="lec6-2.png" width="70%" /></p>
+</div>
+</div>
+<div id="교시-β-줄이기변수선택-실습" class="section level2">
+<h2>2~3교시 : β 줄이기(변수선택) 실습 ————————</h2>
+<div id="ridge-regression-의-λ에-따른-beta값-변화-예시" class="section level3">
+<h3>2.1] Ridge regression 의 λ에 따른 beta값 변화 예시</h3>
+<pre class="r"><code>X &lt;- as.matrix(mtcars[,2:10])
+X &lt;- cbind(1, X)
+
+Y &lt;- mtcars[,1]
+
+beta &lt;- solve(t(X) %*% X) %*% t(X) %*% Y
+beta </code></pre>
+<pre><code>##             [,1]
+##      12.83083549
+## cyl  -0.16881263
+## disp  0.01623358
+## hp   -0.02424055
+## drat  0.70590083
+## wt   -4.03214213
+## qsec  0.86828517
+## vs    0.36470431
+## am    2.55092849
+## gear  0.50293618</code></pre>
+<pre class="r"><code>lambda &lt;- 0
+
+beta_r0 &lt;- solve(t(X) %*% X + lambda*diag(ncol(X))) %*% t(X) %*% Y
+beta_r0</code></pre>
+<pre><code>##             [,1]
+##      12.83083549
+## cyl  -0.16881263
+## disp  0.01623358
+## hp   -0.02424055
+## drat  0.70590083
+## wt   -4.03214213
+## qsec  0.86828517
+## vs    0.36470431
+## am    2.55092849
+## gear  0.50293618</code></pre>
+<pre class="r"><code>lambda &lt;- 0.5
+beta_r0.5 &lt;- solve(t(X) %*% X + lambda*diag(ncol(X))) %*% t(X) %*% Y
+lambda &lt;- 1
+beta_r1 &lt;- solve(t(X) %*% X + lambda*diag(ncol(X))) %*% t(X) %*% Y
+lambda &lt;- 10
+beta_r10 &lt;- solve(t(X) %*% X + lambda*diag(ncol(X))) %*% t(X) %*% Y
+lambda &lt;- 100
+beta_r100 &lt;- solve(t(X) %*% X + lambda*diag(ncol(X))) %*% t(X) %*% Y
+lambda &lt;- 1000
+beta_r1000 &lt;- solve(t(X) %*% X + lambda*diag(ncol(X))) %*% t(X) %*% Y
+lambda &lt;- 10000
+beta_r10000 &lt;- solve(t(X) %*% X + lambda*diag(ncol(X))) %*% t(X) %*% Y
+
+beta_set &lt;- cbind(beta_r0, beta_r0.5, beta_r1, beta_r10, beta_r100, beta_r1000, beta_r10000)
+
+beta_set</code></pre>
+<pre><code>##             [,1]        [,2]        [,3]         [,4]         [,5]        [,6]
+##      12.83083549  0.74307514  0.49494882  0.198919357  0.088735264  0.04927890
+## cyl  -0.16881263  0.25706431  0.25718278  0.224612436  0.180121429  0.12821802
+## disp  0.01623358  0.01468400  0.01234894 -0.007454818 -0.028568475 -0.02750663
+## hp   -0.02424055 -0.02477501 -0.02506126 -0.019082526  0.004368847  0.03618592
+## drat  0.70590083  1.24333430  1.31055615  1.178476809  0.486384025  0.21992398
+## wt   -4.03214213 -3.88630631 -3.58389967 -1.510352725 -0.165549234  0.05068967
+## qsec  0.86828517  1.19435739  1.16043661  1.051285639  1.194662009  0.94929368
+## vs    0.36470431  0.18598527  0.14752118  0.009664062  0.046078466  0.05603508
+## am    2.55092849  2.48686907  2.24417230  1.116382610  0.270646887  0.05872088
+## gear  0.50293618  0.97997603  1.06959171  1.181758738  0.512698905  0.21702041
+##              [,7]
+##       0.013818160
+## cyl   0.037845630
+## disp -0.008200309
+## hp    0.081506122
+## drat  0.059373892
+## wt    0.020379977
+## qsec  0.277597557
+## vs    0.016959345
+## am    0.012531526
+## gear  0.058070221</code></pre>
+<div id="항등행렬-만들기-diag행개수-열개수" class="section level5">
+<h5>항등행렬 만들기 : diag(행개수, 열개수)</h5>
+<ul>
+<li>행, 열 하나만 써도 됨, ncol()를 이용하면 편함</li>
+<li>위에서 X를 10개 열로 만들어 놔서 항등행렬이 아래와 같음</li>
+</ul>
+<pre class="r"><code>diag(ncol(X))</code></pre>
+<pre><code>##       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+##  [1,]    1    0    0    0    0    0    0    0    0     0
+##  [2,]    0    1    0    0    0    0    0    0    0     0
+##  [3,]    0    0    1    0    0    0    0    0    0     0
+##  [4,]    0    0    0    1    0    0    0    0    0     0
+##  [5,]    0    0    0    0    1    0    0    0    0     0
+##  [6,]    0    0    0    0    0    1    0    0    0     0
+##  [7,]    0    0    0    0    0    0    1    0    0     0
+##  [8,]    0    0    0    0    0    0    0    1    0     0
+##  [9,]    0    0    0    0    0    0    0    0    1     0
+## [10,]    0    0    0    0    0    0    0    0    0     1</code></pre>
+</div>
+<div id="lasso-regression은-어려움.-절대값-처리하는-스킬-필요함." class="section level5">
+<h5>LASSO regression은 어려움. 절대값 처리하는 스킬 필요함.</h5>
+<p><br />
+</p>
+</div>
+</div>
+<div id="train-세트를-나눠서-λ를-결정하기" class="section level3">
+<h3>2.2] train 세트를 나눠서 λ를 결정하기</h3>
+<ul>
+<li>train 을 학습용과 validation set(나머지)으로 나누기<br />
+</li>
+<li>학습용에서 λ 후보들을 만들고, validation에서 λ 최종확정<br />
+</li>
+</ul>
+<pre class="r"><code>knitr::include_graphics(&quot;lec6-3.png&quot;)</code></pre>
+<p><img src="lec6-3.png" width="50%" /></p>
+<div id="validation-set-나누기-validation_split" class="section level5">
+<h5>validation set 나누기 : validation_split()</h5>
+<pre class="r"><code>validation_split &lt;- validation_split(mtcars, prop = 0.7)
+validation_split</code></pre>
+<pre><code>## # Validation Set Split (0.7/0.3)  
+## # A tibble: 1 x 2
+##   splits          id        
+##   &lt;list&gt;          &lt;chr&gt;     
+## 1 &lt;split [22/10]&gt; validation</code></pre>
+<pre class="r"><code># 실제 내용을 보려면, 
+validation_split$splits[[1]]$in_id</code></pre>
+<pre><code>##  [1] 12  6  5 19 27  2  4 28 18 21 13 20  1  8 16 14  9 22 26 11 17  7</code></pre>
+<pre class="r"><code>head(validation_split$splits[[1]]$in_id)</code></pre>
+<pre><code>## [1] 12  6  5 19 27  2</code></pre>
+</div>
+<div id="tunning" class="section level5">
+<h5>tunning</h5>
+<div id="penalty-tune-λ" class="section level6">
+<h6>- penalty = tune() : λ</h6>
+</div>
+<div id="mixture-tune-α-tune자리에-0을-넣으면-ridge됨" class="section level6">
+<h6>- mixture = tune() : α (tune()자리에 0을 넣으면 ridge됨)</h6>
+<pre class="r"><code>tune_spec &lt;- linear_reg(penalty = tune(),
+                        mixture = 0) %&gt;%
+  set_engine(&quot;glmnet&quot;)
+
+# 0~1까지 람다를 균등하게 50개 뽑기
+param_grid &lt;- grid_regular(penalty(), levels = 50)
+                           #mixture(),
+                           #levels = list(penalty =100,
+                                         #mixture = 10))
+param_grid</code></pre>
+<pre><code>## # A tibble: 50 x 1
+##     penalty
+##       &lt;dbl&gt;
+##  1 1   e-10
+##  2 1.60e-10
+##  3 2.56e-10
+##  4 4.09e-10
+##  5 6.55e-10
+##  6 1.05e- 9
+##  7 1.68e- 9
+##  8 2.68e- 9
+##  9 4.29e- 9
+## 10 6.87e- 9
+## # … with 40 more rows</code></pre>
+</div>
+</div>
+<div id="workflow-만들기-학습하고-평가하는-모델" class="section level5">
+<h5>workflow() 만들기 : 학습하고 평가하는 모델</h5>
+<pre class="r"><code>workflow &lt;- workflow() %&gt;% 
+  add_model(tune_spec) %&gt;%
+  add_formula(mpg ~ .)</code></pre>
+</div>
+<div id="tunning-하기-λ-α" class="section level5">
+<h5>tunning 하기 : λ, α</h5>
+<pre class="r"><code>library(tictoc)
+doParallel::registerDoParallel()
+
+tic()
+tune_result &lt;- workflow %&gt;%
+  tune_grid(validation_split, 
+            grid = param_grid, 
+            metrics = metric_set(rmse))
+toc()</code></pre>
+<pre><code>## 0.771 sec elapsed</code></pre>
+<pre class="r"><code>tune_result %&gt;%
+  collect_metrics()</code></pre>
+<pre><code>## # A tibble: 50 x 7
+##     penalty .metric .estimator  mean     n std_err .config              
+##       &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+##  1 1   e-10 rmse    standard    3.83     1      NA Preprocessor1_Model01
+##  2 1.60e-10 rmse    standard    3.83     1      NA Preprocessor1_Model02
+##  3 2.56e-10 rmse    standard    3.83     1      NA Preprocessor1_Model03
+##  4 4.09e-10 rmse    standard    3.83     1      NA Preprocessor1_Model04
+##  5 6.55e-10 rmse    standard    3.83     1      NA Preprocessor1_Model05
+##  6 1.05e- 9 rmse    standard    3.83     1      NA Preprocessor1_Model06
+##  7 1.68e- 9 rmse    standard    3.83     1      NA Preprocessor1_Model07
+##  8 2.68e- 9 rmse    standard    3.83     1      NA Preprocessor1_Model08
+##  9 4.29e- 9 rmse    standard    3.83     1      NA Preprocessor1_Model09
+## 10 6.87e- 9 rmse    standard    3.83     1      NA Preprocessor1_Model10
+## # … with 40 more rows</code></pre>
+</div>
+<div id="visualization-of-the-tunning-result" class="section level5">
+<h5>Visualization of the tunning result</h5>
+<pre class="r"><code>tune_best &lt;- tune_result %&gt;% select_best(metric = &quot;rmse&quot;)
+tune_best$penalty</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code># tune_best$mixture
+tune_result %&gt;% show_best()</code></pre>
+<pre><code>## # A tibble: 5 x 7
+##    penalty .metric .estimator  mean     n std_err .config              
+##      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+## 1 1   e+ 0 rmse    standard    3.54     1      NA Preprocessor1_Model50
+## 2 6.25e- 1 rmse    standard    3.77     1      NA Preprocessor1_Model49
+## 3 1   e-10 rmse    standard    3.83     1      NA Preprocessor1_Model01
+## 4 1.60e-10 rmse    standard    3.83     1      NA Preprocessor1_Model02
+## 5 2.56e-10 rmse    standard    3.83     1      NA Preprocessor1_Model03</code></pre>
+</div>
+<div id="plot" class="section level5">
+<h5>plot</h5>
+<pre class="r"><code>knitr::include_graphics(&quot;lec6-4.png&quot;)</code></pre>
+<p><img src="lec6-4.png" width="50%" /></p>
+<pre class="r"><code>knitr::include_graphics(&quot;lec6-5.png&quot;)</code></pre>
+<p><img src="lec6-5.png" width="50%" /></p>
+</div>
+<div id="전체-데이터로-모델-적용시키고" class="section level5">
+<h5>전체 데이터로 모델 적용시키고</h5>
+<pre class="r"><code>knitr::include_graphics(&quot;lec6-6.png&quot;)</code></pre>
+<p><img src="lec6-6.png" width="50%" /></p>
+</div>
+<div id="예측" class="section level5">
+<h5>예측</h5>
+<pre class="r"><code>knitr::include_graphics(&quot;lec6-7.png&quot;)</code></pre>
+<p><img src="lec6-7.png" width="50%" /></p>
+</div>
+<div id="제출할-파일-생성" class="section level5">
+<h5>제출할 파일 생성</h5>
+<pre class="r"><code>knitr::include_graphics(&quot;lec6-8.png&quot;)</code></pre>
+<p><img src="lec6-8.png" width="50%" /></p>
+</div>
+</div>
+<div id="validation이-우연히-잘못-뽑히면-망한다" class="section level3">
+<h3>validation이 우연히 잘못 뽑히면 망한다?</h3>
+</div>
+<div id="cross-validation-으로-해결" class="section level3">
+<h3>-&gt; cross validation 으로 해결</h3>
+<pre class="r"><code>knitr::include_graphics(&quot;lec6-9.png&quot;)</code></pre>
+<p><img src="lec6-9.png" width="50%" /></p>
+<div id="개로-validation을-나누기-vfold_cv" class="section level5">
+<h5>10개로 validation을 나누기 : vfold_cv()</h5>
+<ul>
+<li>10개, 가격이 골고루 담기도록 strata = 가격</li>
+</ul>
+<pre class="r"><code>knitr::include_graphics(&quot;lec6-10.png&quot;)</code></pre>
+<p><img src="lec6-10.png" width="50%" /></p>
+</div>
+<div id="mixture를-살려서-돌리기" class="section level5">
+<h5>mixture를 살려서 돌리기 :</h5>
+<ul>
+<li>tune_spec과 param_grid에서 mixture살리고, level을 맞춤</li>
+<li>크면 오래걸리니까 패널티는 100개, mixtuer는 5개만</li>
+<li>나머지 부분은 그대로(mixture=0만 패널티처럼 수정)</li>
+</ul>
+<pre class="r"><code>knitr::include_graphics(&quot;lec6-11.png&quot;)</code></pre>
+<p><img src="lec6-11.png" width="50%" /></p>
+</div>
+</div>
+</div>
+<div id="점수를-올려보자" class="section level2">
+<h2>점수를 올려보자 ————</h2>
+<div id="outlier-제거-filter" class="section level3">
+<h3>3.1] outlier 제거 : filter()</h3>
+<pre class="r"><code>knitr::include_graphics(&quot;lec6-12.png&quot;)</code></pre>
+<p><img src="lec6-12.png" width="50%" /></p>
+</div>
+<div id="group-mean값을-구해서-새로운-변수로-활용하자" class="section level3">
+<h3>3.2] group mean값을 구해서 새로운 변수로 활용하자!</h3>
+<pre class="r"><code>knitr::include_graphics(&quot;lec6-13.png&quot;)</code></pre>
+<p><img src="lec6-13.png" width="50%" /></p>
+</div>
+</div>
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
