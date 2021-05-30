@@ -10,9 +10,15 @@ navbar:
     - text: "Portfolio"
       menu:
         - text: "0305 review"
-          href: review_0305.html     
+          href: review_0305.html
+        - text: "0402 review(왜 knit이 안되는가)"
+          href: 0402.Rmd           
+        - text: "집값맞추기(왜 knit이 안되는가)"
+          href: Ames_raw.Rmd           
         - text: "HW1"
           href: 0409 HW1 박태익.pdf
+        - text: "HW2"
+          href: 0514 HW2(take).pdf
         - text: "R 단축키 출력용"
           href: R 단축키.hwp
     - text: "About"

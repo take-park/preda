@@ -853,6 +853,18 @@ $(document).ready(function () {
 </div>
 <div class="nav-right">
 <a href="index.html">Home</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Portfolio
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="review_0305.html">0305 review</a>
+<a href="0409 HW1 박태익.pdf">HW1</a>
+<a href="R 단축키.hwp">R 단축키 출력용</a>
+</div>
+</div>
 <a href="about.html">About</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
@@ -879,6 +891,24 @@ $(document).ready(function () {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Portfolio
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="review_0305.html">0305 review</a>
+    </li>
+    <li>
+      <a href="0409 HW1 박태익.pdf">HW1</a>
+    </li>
+    <li>
+      <a href="R 단축키.hwp">R 단축키 출력용</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="about.html">About</a>
@@ -1128,9 +1158,9 @@ validation_split</code></pre>
 ## 1 &lt;split [22/10]&gt; validation</code></pre>
 <pre class="r"><code># 실제 내용을 보려면, 
 validation_split$splits[[1]]$in_id</code></pre>
-<pre><code>##  [1] 12  6  5 19 27  2  4 28 18 21 13 20  1  8 16 14  9 22 26 11 17  7</code></pre>
+<pre><code>##  [1] 18 11 17 19 32  1  8 14 26 21 24 30  9  6 20  2 29 15  3 13 27 22</code></pre>
 <pre class="r"><code>head(validation_split$splits[[1]]$in_id)</code></pre>
-<pre><code>## [1] 12  6  5 19 27  2</code></pre>
+<pre><code>## [1] 18 11 17 19 32  1</code></pre>
 </div>
 <div id="tunning" class="section level5">
 <h5>tunning</h5>
@@ -1182,22 +1212,22 @@ tune_result &lt;- workflow %&gt;%
             grid = param_grid, 
             metrics = metric_set(rmse))
 toc()</code></pre>
-<pre><code>## 0.771 sec elapsed</code></pre>
+<pre><code>## 0.894 sec elapsed</code></pre>
 <pre class="r"><code>tune_result %&gt;%
   collect_metrics()</code></pre>
 <pre><code>## # A tibble: 50 x 7
 ##     penalty .metric .estimator  mean     n std_err .config              
 ##       &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
-##  1 1   e-10 rmse    standard    3.83     1      NA Preprocessor1_Model01
-##  2 1.60e-10 rmse    standard    3.83     1      NA Preprocessor1_Model02
-##  3 2.56e-10 rmse    standard    3.83     1      NA Preprocessor1_Model03
-##  4 4.09e-10 rmse    standard    3.83     1      NA Preprocessor1_Model04
-##  5 6.55e-10 rmse    standard    3.83     1      NA Preprocessor1_Model05
-##  6 1.05e- 9 rmse    standard    3.83     1      NA Preprocessor1_Model06
-##  7 1.68e- 9 rmse    standard    3.83     1      NA Preprocessor1_Model07
-##  8 2.68e- 9 rmse    standard    3.83     1      NA Preprocessor1_Model08
-##  9 4.29e- 9 rmse    standard    3.83     1      NA Preprocessor1_Model09
-## 10 6.87e- 9 rmse    standard    3.83     1      NA Preprocessor1_Model10
+##  1 1   e-10 rmse    standard    3.00     1      NA Preprocessor1_Model01
+##  2 1.60e-10 rmse    standard    3.00     1      NA Preprocessor1_Model02
+##  3 2.56e-10 rmse    standard    3.00     1      NA Preprocessor1_Model03
+##  4 4.09e-10 rmse    standard    3.00     1      NA Preprocessor1_Model04
+##  5 6.55e-10 rmse    standard    3.00     1      NA Preprocessor1_Model05
+##  6 1.05e- 9 rmse    standard    3.00     1      NA Preprocessor1_Model06
+##  7 1.68e- 9 rmse    standard    3.00     1      NA Preprocessor1_Model07
+##  8 2.68e- 9 rmse    standard    3.00     1      NA Preprocessor1_Model08
+##  9 4.29e- 9 rmse    standard    3.00     1      NA Preprocessor1_Model09
+## 10 6.87e- 9 rmse    standard    3.00     1      NA Preprocessor1_Model10
 ## # … with 40 more rows</code></pre>
 </div>
 <div id="visualization-of-the-tunning-result" class="section level5">
@@ -1210,11 +1240,11 @@ tune_result %&gt;% show_best()</code></pre>
 <pre><code>## # A tibble: 5 x 7
 ##    penalty .metric .estimator  mean     n std_err .config              
 ##      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
-## 1 1   e+ 0 rmse    standard    3.54     1      NA Preprocessor1_Model50
-## 2 6.25e- 1 rmse    standard    3.77     1      NA Preprocessor1_Model49
-## 3 1   e-10 rmse    standard    3.83     1      NA Preprocessor1_Model01
-## 4 1.60e-10 rmse    standard    3.83     1      NA Preprocessor1_Model02
-## 5 2.56e-10 rmse    standard    3.83     1      NA Preprocessor1_Model03</code></pre>
+## 1 1   e+ 0 rmse    standard    2.76     1      NA Preprocessor1_Model50
+## 2 6.25e- 1 rmse    standard    2.93     1      NA Preprocessor1_Model49
+## 3 1   e-10 rmse    standard    3.00     1      NA Preprocessor1_Model01
+## 4 1.60e-10 rmse    standard    3.00     1      NA Preprocessor1_Model02
+## 5 2.56e-10 rmse    standard    3.00     1      NA Preprocessor1_Model03</code></pre>
 </div>
 <div id="plot" class="section level5">
 <h5>plot</h5>
