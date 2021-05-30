@@ -16,5 +16,5 @@ navbar:
         - text: "R 단축키 출력용"
           href: R 단축키.hwp
     - text: "About"
-      href: about.html      
+      href: about.html
 output: distill::distill_article
