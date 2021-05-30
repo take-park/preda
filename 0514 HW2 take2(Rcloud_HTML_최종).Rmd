@@ -1,0 +1,133 @@
+---
+title: "HW2"
+author: "take"
+date: '2021 5 14 '
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Exponential family
+
+< 1번식 >
+$$f_Y (y;θ,ϕ) =exp\left[\frac{y\theta-b(\theta)}{a(\phi)}+c(y,\phi)\right] $$
+
+### 1) Express the p.d.f of random variable 𝑌
+
+$$ 𝑌 ∼ 𝐵𝑒𝑟𝑛𝑢𝑙𝑙𝑖 (𝑝)$$이면, 
+
+$$f_Y (y;p)=p^y (1-p)^{(1-y)} $$
+이므로, 이 식을 exp 형태로 변형하여 정리하면,
+$$=exp[ylnp + (1-y)ln(1-p) ]  $$
+
+
+$$ =exp[ylnp +ln(1-p) - yln(1-p)]  $$
+$$ =exp[y[lnp- ln(1-p)] +ln(1-p) ]  $$
+$$ =exp\left[yln\frac{p}{1-p}+ln(1-p)\right] $$
+$$ =exp\left[\frac{yln\frac{p}{1-p}+ln(1-p)}{1}+0\right] $$
+이 된다. 이를 맨 위 < 1번식 >과 비교하면, 
+
+$\theta= ln\frac{p}{1-p}$ 이고, $b(\theta)= - ln(1-p)$, $a(\phi) = 1$, $c(y,\phi) = 0$임을 알 수 있다.
+
+θ와 p의 식을 이용하여, b(θ) 부분을 좀더 정리하면,
+
+$$\theta= ln\frac{p}{1-p}$$
+$$e^{\theta}= \frac{p}{1-p}$$
+$$e^{\theta}(1-p) = p$$
+
+$$e^{\theta} =(e^{\theta}+1) p$$
+
+$$p=\frac{e^{\theta}}{e^{\theta}+1}$$
+이를 b(θ)에 대입하면,
+$$b(\theta)= -ln(1-p) = -ln(1-\frac{e^{\theta}}{e^{\theta}+1})= -ln(\frac{e^{\theta}+1-e^{\theta}}{e^{\theta}+1})= -ln(\frac{1}{e^{\theta}+1})= ln(e^{\theta}+1) $$
+따라서, \
+
+$\theta= ln\frac{p}{1-p}$ 이고, $b(\theta)=ln(e^{\theta}+1)$, $a(\phi) = 1$, $c(y,\phi) = 0$이다.\
+
+\
+
+### 2) Express the p.d.f of random variable 𝑌
+
+$$ 𝑌 ∼ 𝑃 𝑜𝑖𝑠𝑠𝑜𝑛 (𝜆)$$이면, 
+
+$$f_Y (y;λ)=\frac{\lambda^{y}e^{(-\lambda)}}{y!} $$
+이므로, 이 식을 exp 형태로 변형하여 정리하면,
+$$=exp[ylnλ + (-y) - ln(y!) ]  $$
+
+$$=exp\left[\frac{ylnλ -y}{1}+(- ln(y!))\right] $$
+
+
+이 된다. 이를 맨 위 < 1번식 >과 비교하면, 
+
+$\theta= lnλ$ 이고, $b(\theta)= y$, $a(\phi) = 1$, $c(y,\phi) = - ln(y!)$임을 알 수 있다.
+
+θ와 p의 식을 이용하여, b(θ) 부분을 좀더 정리하면,
+
+$\theta= ln\frac{p}{1-p}$ 이고, $b(\theta)=e^{\theta}$, $a(\phi) = 1$, $c(y,\phi) = 0$이다.\
+
+
+### 3) Verify the logit link for the logistic regression and the log link for the poisson regression are the canonical link functions.
+
+b'(θ)=μ이므로, \
+
+θ = g(μ) = g(b'(θ))이고, 양변에 g의 역함수를 취하면,\
+
+g^-I^(θ) = b'(θ)이 되고, \
+g(θ) = [b'(θ)]^-I^ 이 된다. \
+
+\
+
+<1-3)-1. 베르누이>
+
+위 1)에서 구한 b(θ)를 이용하여 정리하면, \
+
+\
+
+$$ g(\theta)={b'(\theta)}^{-I}={\left(\frac{e^{\theta}}{e^{\theta}+1}\right)}^{-I}=ln(\frac{\theta}{1-\theta})$$
+이므로,
+
+$$ g(\mu)=ln(\frac{\mu}{1-\mu})=\theta$$
+가 된다.
+
+
+<1-3)-2. 프아송>
+
+
+위 2)에서 구한 b(θ)를 이용하여 정리하면, \
+
+\
+
+$$ g(\theta)={b'(\theta)}^{-I}={(e^{\theta})}^ {-I}=ln\theta$$
+이므로,
+
+$$ g(\mu)=ln\mu=\theta$$
+가 된다.\
+
+\
+\
+
+
+
+## 2. Maximum Likelihood Estimator of Poisson Regression
+
+### 1) Calculate the coefficients by using the following code.
+
+```{r}
+example_data <- read.csv("./0514 hw2_table1.csv")
+head(example_data)
+```
+
+```{r}
+model <- glm(Claims ~ Gender + Territory, family = poisson(link = log), data = example_data)
+model$coefficients
+```
+
+\
+
+
+### 2) Find the coefficients of Poisson regression above using an user define R function via gradient descent algorithm. 
+
+죄송합니다.
+

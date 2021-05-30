@@ -1,0 +1,29 @@
+---
+title: "HardWork2"
+author: "take"
+date: '2021 5 14 '
+output: pdf_document
+latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Exponential family
+
+$$f_Y (y;θ,ϕ) =exp\left[\frac{y\theta-b(\theta)}{a(\phi)}+c(y,\phi)\right] $$
+### 1) Express the p.d.f of random variable 𝑌
+$$ 𝑌 ∼ 𝐵𝑒𝑟𝑛𝑢𝑙𝑙𝑖 (𝑝)$$
+
+$$f_Y (y;p)=p^y (1-p)^{(1-y)} $$
+$$=exp[ylnp + (1-y)ln(1-p) ]  $$
+$$=exp[ylnp +ln(1-p) - yln(1-p)]  $$
+$$=exp[y[lnp- ln(1-p)] +ln(1-p) ]  $$
+$$=exp\left[yln\frac{p}{1-p}+ln(1-p)\right] $$
+
+
+
+## 2. Maximum Likelihood Estimator of Poisson Regression
+
+

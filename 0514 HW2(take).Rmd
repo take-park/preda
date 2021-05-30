@@ -1,0 +1,44 @@
+---
+title: "HardWork2"
+author: "take"
+date: '2021 5 14 '
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Exponential family
+
+$$f_Y (y;θ,ϕ) =exp\left[\frac{y\theta-b(\theta)}{a(\phi)}+c(y,\phi)\right] $$
+### 1) Express the p.d.f of random variable 𝑌
+$$ 𝑌 ∼ 𝐵𝑒𝑟𝑛𝑢𝑙𝑙𝑖 (𝑝)$$
+
+$$f_Y (y;p)=p^y (1-p)^{(1-y)} $$
+$$=exp[ylnp + (1-y)ln(1-p) ]  $$
+$$=exp[ylnp +ln(1-p) - yln(1-p)]  $$
+$$=exp[y[lnp- ln(1-p)] +ln(1-p) ]  $$
+$$=exp\left[yln\frac{p}{1-p}+ln(1-p)\right] $$
+
+
+
+## 2. Maximum Likelihood Estimator of Poisson Regression
+
+### 1) Calculate the coefficients by using the following code.
+
+```{r}
+example_data <- read.csv("C:/Users/take2/Desktop/태익/대학원/2021 1 응용통계학(이삭)/0514 hw2_table1.csv")
+head(example_data)
+```
+
+```{r}
+model <- glm(Claims ~ Gender + Territory, family = poisson(link = log), data = example_data)
+model$coefficients
+```
+
+
+### 2) Find the coefficients of Poisson regression above using an user define R function via gradient descent algorithm. 
+
+
+

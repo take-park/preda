@@ -1,0 +1,155 @@
+---
+title: "여기도 부동산"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\
+
+# AmesHousing의 집값을 맞춰보자
+
+\
+
+### 1. 개요
+
+-   AmesHousing package내 Ames_raw 데이터를 토대로,\
+    여러 변수를 분석하여 집값을 예측하는 모델을 만들기
+
+\
+
+### 2. 준비
+
+```{r}
+library(AmesHousing)
+library(rmarkdown)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+```
+
+\
+
+### 3. 데이터 둘러보기
+
+-   
+
+    1)  데이터 규모(행, 열)는?
+
+```{r}
+dim(ames_raw)
+```
+
+> `소결론` : 열, 즉 변수가 너무 많다.\
+> → 어떤 변수가 집값에 어떻게 영향을 줬을지 쉽게 찾기 어려움.\
+> → 우선, 집값 자체의 분포를 먼저 살펴 보자.
+
+-   
+
+    2)  집값의 분포는?
+
+```{r}
+summary(ames_raw$SalePrice)
+ggplot(ames_raw, aes(x = SalePrice)) + 
+  geom_histogram(bins=100)
+```
+
+> `소결론` : (1) 평균 18만으로 12.8만부터 최대 75.5만까지 분포한다.\
+> (2) 오른쪽 꼬리가 긴 것을 보면 집 중에서 엄청 비싼 집(아웃라이어)가 일부 있을 것이다.
+
+\
+
+### 4. 어떤 변수가 집값에 영향을 주는가?
+
+-   
+
+    1)  총 변수는 79개\
+        : 82개 열 중, 종속변수인 SalePrice와 순서인 Order, 식별자인 PID를 제외.
+
+    2)  각 변수를
+
+    -   연속형 변수(예 : `Lot Area`)
+    -   분류형 변수(예 : Neighborhood, `Sale Type`)
+    -   점수형 변수(예 : `Overall Qual`) 로 나누고,
+
+    \
+
+    3)  분류형 변수는 하위 분류별 집값 평균을 분석 → 하위 분류별 평균 차이가 크지 않으면 해당 변수는 유의미하지 않음
+
+    4)  연속형과 점수형 변수는 집값과 상관도를 분석
+
+    하면 좋겠는데, 변수를 요약하는 코드는 뭘까?
+
+-   일단, 변수가 뭐뭐 있는지 살펴보면,
+
+```{r}
+glimpse(ames_raw)
+```
+
+-   이 중 의미를 유추해볼 수 있는 몇 개의 변수를 뽑아서 집값 박스그래프를 보면,
+
+    -   분류형 변수(예 : `House Style`, `Sale Type`)
+    -   점수형 변수(예 : `Overall Qual`)
+
+-   
+
+    A)  `House Style` 별 분포
+
+```{r}
+ames_raw %>% 
+  group_by(`House Style`) %>% 
+  summarize(mean(SalePrice, na.rm = TRUE))
+
+ggplot(ames_raw, aes(x = `House Style`, y = SalePrice, fill=`House Style`)) + geom_boxplot(alpha=0.5,show.legend = TRUE) +
+  theme(legend.position="none") + stat_summary(geom='point',fun=mean,shape=23,size=3)
+```
+
+-   
+
+    B)  `Sale Type` 별 분포
+
+```{r}
+ames_raw %>% 
+  group_by(`Sale Type`) %>% 
+  summarize(mean(SalePrice, na.rm = TRUE))
+
+ggplot(ames_raw, aes(x = `Sale Type`, y = SalePrice, fill=`Sale Type`)) + geom_boxplot(alpha=0.5,show.legend = TRUE) +
+  theme(legend.position="none") + stat_summary(geom='point',fun=mean,shape=23,size=3)
+```
+
+-   
+
+    C)  `Overall Qual` 별 분포
+
+```{r}
+ames_raw %>% 
+  group_by(`Overall Qual`) %>% 
+  summarize(mean(SalePrice, na.rm = TRUE))
+
+ggplot(ames_raw, aes(x =`Overall Qual`, y = SalePrice)) +  
+  geom_point(alpha=0.1) +
+   stat_summary(geom='point',fun=mean,shape=23,size=3)
+
+```
+
+\
+
+### 5. 더 해보고 싶은 것
+
+-   깃허브 연결하면 왜 마크다운이 안되는가...
+-   전체 변수를 종류별로 뽑아내는 방법은? : select를 어떻게 잘 쓰면 될지도.
+-   변수별 통계(피벗테이블)
+
+| 변수            | 하위값 | 개수 | 집값평균 | 편차 |
+|-----------------|--------|------|----------|------|
+| \`House Style\` | 1.5Fin | \#\# | \#\#\#   | \#\# |
+|                 | 1.5Unf | \#\# | \#\#\#   | \#\# |
+|                 | 1Story | \#\# | \#\#\#   | \#\# |
+
+\
+
+### 6. 집값 맞추기
+
+-   언젠간 되겠지?
