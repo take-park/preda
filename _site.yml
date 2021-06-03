@@ -11,10 +11,10 @@ navbar:
       menu:
         - text: "0305 review"
           href: review_0305.html
-        - text: "0402 review(왜 knit이 안되는가)"
-          href: 0402.Rmd           
-        - text: "집값맞추기(왜 knit이 안되는가)"
-          href: Ames_raw.Rmd           
+        - text: "0402 review""
+          href: 0402.html           
+        - text: "집값맞추기"
+          href: Ames_raw.html           
         - text: "HW1"
           href: 0409 HW1 박태익.pdf
         - text: "HW2"
