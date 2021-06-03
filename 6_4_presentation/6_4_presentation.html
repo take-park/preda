@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>신용카드 사용자 연체 예측 AI 경진대회</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="2021-06-04" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/statisticsplaybook.css" type="text/css" />
+    <link rel="stylesheet" href="css/statisticsplaybook-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+class: title-slide, left, bottom
+
+# 신용카드 사용자 연체 예측 AI 경진대회
+----
+## **지구온나나나팀: 박태익 손성만 백한별**
+### 2021-06-04
+### 
+
+---
+class: inverse, left
+
+# Random Forest
+
+
+&gt; 1. Random Forest?
+
+&gt; 2. Random Forest 모수추정
+
+&gt; 3. Random Forest vfold 구하기
+
+---
+# 1. Random Forest?
+
+&lt;img src="../6_4_presentation/img/random_forest.PNG" width="60%" style="display: block; margin: auto;" /&gt;
+
+▷ 고려할 변수들을 랜덤(Bagging)으로 골라서 각각 tree를 만든다
+
+▷ Voting을 통해서 최종 예측
+  - Hard Voting: 각 트리의 예측 결과를 투표를 통해 최종적으로 예측(classification data)
+  
+  - Soft Voting: 각 트리에서 결정확률의 평균이 가장 높은 것으로 예측(continuous data)
+
+---
+# 1. Random Forest?
+
+**장점**
+  - Bagging으로 tree를 만들기 때문에 오버피팅을 방지 할 수 있음
+  
+  - 예측 성능이 좋다(점수가 제일 높게 나옴)
+
+
+**단점**
+  - 사용할 모수(`mtry`, `min_n`)를 구하는데 시간이 오래걸림
+
+
+---
+# 2. Random Forest 모수추정
+
+random forest 사용할 때는 **튜닝 스펙**을 설정해야한다
+
+
+```r
+tune_spec &lt;- rand_forest(mtry = tune(),
+                         min_n = tune(),
+                         trees = 1000) %&gt;% 
+  set_engine("ranger", num.threads = cores) %&gt;% set_mode("classification")
+```
+
+`tune_spec`: 모수를 어떻게 선택하는게 좋을지 best를 정하기
+
+`rand_forest()`
+  &gt; - `mtry = tune()`: tree를 만들때 몇 개의 변수를 고려하는 것이 best인가. 열에서 종속변수를 제외하고 선택할  변수의 수
+  &gt; - `min_n = tune()`: terminal node에 몇개가 남을때까지 split하는게 best인가
+  &gt; - `trees`: 1000개의 tree를 사용
+
+---
+# 2. Random Forest 모수추정
+
+
+```r
+tune_spec &lt;- rand_forest(mtry = tune(),
+                         min_n = tune(),
+                         trees = 1000) %&gt;% 
+  set_engine("ranger",
+             num.threads = cores) %&gt;% set_mode("classification")
+```
+
+`rand_forest()`
+  &gt; - `set_engine`: ranger package안에 있는 random forest를 사용
+  
+  &gt; - `set_mode`: classification 문제
+  
+---
+# 2. Random Forest 모수추정
+각 설정된 `param_grid`안에 위에서 설정한 1000개의 tree가 들어있다!
+
+
+```r
+param_grid &lt;- grid_random(finalize(mtry(), 
+                                   x = train2[,-1]), 
+                          min_n(), size = 100)
+
+
+param_grid %&lt;&gt;% filter(mtry &gt;= 3)
+```
+
+
+- `grid_random`: `mtry`, `min_n`의 랜덤한 조합을 `size = 100`개의 tibble로 만든다
+
+- `filter`: `mtry`가 3이상인것만 선택
+
+
+---
+# 2. Random Forest 모수추정
+
+
+```r
+workflow &lt;- workflow() %&gt;% add_model(tune_spec) %&gt;% add_formula(credit ~ .)
+```
+
+```
+## == Workflow =================================================================================================================
+## Preprocessor: Formula
+## Model: rand_forest()
+## 
+## -- Preprocessor -------------------------------------------------------------------------------------------------------------
+## credit ~ .
+## 
+## -- Model --------------------------------------------------------------------------------------------------------------------
+## Random Forest Model Specification (classification)
+## 
+## Main Arguments:
+##   mtry = tune()
+##   trees = 1000
+##   min_n = tune()
+## 
+## Engine-Specific Arguments:
+##   num.threads = cores
+## 
+## Computational engine: ranger
+```
+
+---
+# 2. Random Forest 모수추정
+
+시간 오래 걸림(생략)
+.pull-left[
+
+```r
+#library(tictoc)
+#tic()
+#tune_result &lt;- workflow %&gt;% 
+# tune_grid(validation_split,
+#     grid = param_grid,
+#     metrics = metric_set(mn_log_loss))
+# toc()
+```
+]
+.pull-right[
+  ▶ `tune_grid`: 알맞은 최적의 grid(parameter)를 찾아라 
+  
+  ▶  `validation_split`: cross validation 한 5개의 fold 각각에
+  
+  ▶  `grid`: `mtry`, `min_n`의 랜덤한 조합을 100개의 tibble을 적용해서
+  
+  ▶  최적의 값을 평가하는 지표는 mean log loss를 사용하라
+]
+
+---
+# 2. Random Forest 모수추정
+
+**튜닝결과**
+
+
+```r
+# tune_result %&gt;%
+#   collect_metrics()
+```
+
+&lt;img src="../6_4_presentation/img/1.PNG" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# 2. Random Forest 모수추정
+
+**튜닝결과**
+
+
+```r
+# tune_result %&gt;%
+#   show_best()
+```
+
+&lt;img src="../6_4_presentation/img/2.PNG" width="80%" style="display: block; margin: auto;" /&gt;
+---
+# 2. Random Forest 모수추정
+
+**튜닝결과 시각화**
+
+&lt;img src="../6_4_presentation/img/Rplot.PNG" width="50%" style="display: block; margin: auto;" /&gt;
+
+.center[▶ `mtry = 3`일 때 mean log loss가 제일 작음]
+
+---
+# 2. Random Forest 모수추정
+
+최적의 값을 찾았으면 best인 parameter의 값(mtry, min_n)을 mean log loss를 기준으로 best를 저장 (mn_log_loss 기준 best → `mtry` : 3, `min_n` : 11)
+
+
+```r
+# tune_best &lt;- tune_result %&gt;% select_best(metric = "mn_log_loss")
+# tune_best$mtry
+# tune_best$min_n
+```
+
+&lt;img src="../6_4_presentation/img/3.PNG" width="80%" /&gt;
+
+&lt;img src="../6_4_presentation/img/4.PNG" width="40%" /&gt;
+
+
+---
+# 2. Random Forest vfold 계산
+
+
+```r
+model_spec &lt;- rand_forest(mtry = 3,
+                          min_n = 11,
+                          trees = 1000) %&gt;% 
+    set_mode("classification") %&gt;% 
+    set_engine("ranger", importance = "impurity")
+```
+
+  ▶ vfold로 구한 `mrty`와 `min_n`은 앞에서 구한 best 값을 사용
+  
+  ▶ `ranger`패키지에서 random forest를 사용
+  
+  ▶ classification이라서 impurity(불순도)를 중요변수로 봄
+  
+---
+# 3. Random Forest vfold 계산
+
+```r
+rf_workflow &lt;- workflow() %&gt;%
+  add_model(model_spec) %&gt;% 
+  add_formula(credit ~ .)
+
+rf_grid &lt;- tibble(mtry=c(3),min_n=c(11))
+```
+**시간이 오래 걸려서 생략**
+
+```r
+# library(tictoc)
+# tic()
+# rf_fit_vfold &lt;-  rf_workflow %&gt;% 
+#   tune_grid(validation_split,
+#             grid = rf_grid,
+#             metrics = metric_set(mn_log_loss),
+#             control = control_stack_resamples())
+# toc()
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo_cpt.jpeg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 110px;
+  height: 128px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
