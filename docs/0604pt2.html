@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>신용카드 사용자 연체 예측 AI 경진대회</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="2021-06-04" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/statisticsplaybook.css" type="text/css" />
+    <link rel="stylesheet" href="css/statisticsplaybook-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# 신용카드 사용자 연체 예측 AI 경진대회
+----
+## **지구온나나나팀: 박태익 손성만 백한별**
+### 2021-06-04
+### 
+
+---
+# MLR
+
+
+&gt; 1. MLR?
+
+&gt; 2. MLR 모수추정
+
+&gt; 3. MLR vfold 구하기
+
+&gt; 4. Q&amp;A
+
+---
+
+## 1. MLR? 
+### Multinomial Logistic Regression, 다항 로지스틱 회귀, 다중 분류 
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../0604pt/img/MLR2.PNG" alt="그림1" width="20%" /&gt;
+&lt;p class="caption"&gt;그림1&lt;/p&gt;
+&lt;/div&gt;
+
+▷ 로지스틱의 일종으로 선형 회귀가 아닌 **분류** 형태(범주형 회귀)
+
+▷ 로지스틱에서 시그모이드를 써서 선형 회귀 값을 0과 1로 분류**(2항 분류)**한 것처럼,
+
+- MLR은 **선형 회귀 값을 후처리**해서 **3개 이상**으로 분류하는 **일반화**된 형태
+
+- 예) 수능 등급(1~9등급), 학점(A+, A, ...), 등
+
+---
+
+# 1. MLR? 
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../0604pt/img/softmax.PNG" alt="그림2" width="50%" /&gt;
+&lt;p class="caption"&gt;그림2&lt;/p&gt;
+&lt;/div&gt;
+
+▷ 후처리 함수, 활성화함수(Activation function), Softmax 
+
+---
+
+# 1. MLR? 
+
+▷ **(장점)** 다중 분류 용이, ML 등에 사용 **(단점)** 계수의 직관적 해석 어려움
+
+
+▷ 데이콘 신용카드 대회 사례
+- 성별, 차량소유, 등등의 변수에 따라 신용등급을 0, 1, 2로 분류
+        1) 0인가 아닌가
+        2) 1인가 아닌가
+        3) 2인가 아닌가 
+☞  2항 분류인 로지스틱 모델 말고 **MLR 모델을 적용**
+
+
+---
+
+# 2. MLR 모수추정
+
+▷ 오버피팅 방지를 위한 튜닝(정규화)
+
+   : 모수 `penalty`와 `mixture`의 최적값을 찾기
+
+
+```r
+mlr_spec &lt;- multinom_reg(penalty = tune(),
+                         mixture = tune()) %&gt;% 
+  set_engine("glmnet") %&gt;% 
+  set_mode("classification")
+```
+
+`multinom_reg()`
+  &gt; - `penalty`와 `mixture`를 `tune()`으로 세팅
+  &gt; - `penalty`: 람다(λ), 정규화를 위한 배수
+  &gt; - `mixture`: 알파(α), LASSO 비율 (1:LASSO ~ 0:Ridge)
+  &gt; - `set_engine`: glmnet package안에 있는 multinom_reg을 사용
+  &gt; - `set_mode`: classification 문제
+
+
+---
+
+# 2. MLR 모수추정
+
+▷ 튜닝에 들어갈 `penalty`와 `mixture`의 샘플 만들기
+
+
+```r
+set.seed(2021)
+mlr_grid &lt;- grid_latin_hypercube(penalty(), mixture(),  size = 100)
+```
+
+`grid_latin_hypercube()`
+  &gt; - seed를 고정 : 고정을 하지 않으면 그리드가 바뀌어서 다시 돌릴때 최적값이 바뀌는 경우 발생
+      
+  &gt; - 100개의 `penalty`와 `mixture` 샘플을 임의로 생성
+
+---
+
+# 2. MLR 모수추정
+
+▷ workflow 설정
+
+
+```r
+mlr_wflow &lt;- 
+  workflow() %&gt;% 
+  add_model(mlr_spec) %&gt;%
+  add_formula(credit ~ .)
+```
+
+
+```
+## == Workflow ====================================================================
+## Preprocessor: Formula
+## Model: multinom_reg()
+## 
+## -- Preprocessor ----------------------------------------------------------------
+## credit ~ .
+## 
+## -- Model -----------------------------------------------------------------------
+## Multinomial Regression Model Specification (classification)
+## 
+## Main Arguments:
+##   penalty = tune()
+##   mixture = tune()
+## 
+## Computational engine: glmnet
+```
+
+---
+
+# 2. MLR 모수추정
+▷ 튜닝하기 
+
+.pull-left[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../0604pt/img/tune_mlr.PNG" alt="100개" width="100%" /&gt;
+&lt;p class="caption"&gt;100개&lt;/p&gt;
+&lt;/div&gt;
+]
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../0604pt/img/tune_mlr(1000).png" alt="1000개" width="100%" /&gt;
+&lt;p class="caption"&gt;1000개&lt;/p&gt;
+&lt;/div&gt;
+]
+  &gt; - `metrics` : 최적값 평가 지표는 mean log loss
+  
+---
+
+# 2. MLR 모수추정
+
+▷ 튜닝결과 
+
+&lt;img src="../0604pt/img/tune_result2.PNG" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# 2. MLR 모수추정
+
+▷ 튜닝결과 plot
+.pull-left[
+&lt;img src="../0604pt/img/tune_result_plot.PNG" width="100%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="../0604pt/img/tune_result_plot(1000)2.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+
+---
+
+# 2. MLR 모수추정
+
+▷ 튜닝결과 최적값
+
+- 최적값 : `penalty` = 0.00548831, `mixture` = 0.0993676
+   
+- `mn_log_tune_best`에 저장
+
+&lt;img src="../0604pt/img/tune_mlr_best.PNG" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# 3. MLR vfold 구하기
+
+▷ 최적값을 가지고 학습하기
+
+&lt;img src="../0604pt/img/mlr_fit.PNG" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# 4. Q&amp;A
+
+▷ 어떤 변수가 신용등급 산정에 주요한 영향을 미치는가?
+
+- 학습한 mlr_fit_vfold 모델의 coefficient값을 확인하는 방법은?
+
+
+.pull-left[
+&lt;img src="../0604pt/img/mlr_test.PNG" width="100%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="../0604pt/img/mlr_test2.png" width="60%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# 4. Q&amp;A
+
+▷ grid 실행때마다 값이 리뉴얼되는 문제, 항상 setseed()와 같이 돌려야 하는지?
+- size = 100에서는 tune_best가 변하는 경우 발생
+  (최적 패널티는 변하는데 mean은 0.862로 변화없음)
+☞ setseed(2021)과 grid를 같이 실행
+- size를 1000개로 늘리면 seed고정 없이도 튜닝이 안정적일 수는 있지만, 튠 시간이 대폭 증가
+
+
+
+    
+---
+
+## 참고 및 출처
+
+▶ 참고사이트
+
+ - https://blog.naver.com/hobbang143/221735605346
+ - https://blog.naver.com/pmw9440/222001218822
+ - https://blog.naver.com/jjy0501/221640825506
+ - https://lmlcr.gagolewski.com/shallow-and-deep-neural-networks.html
+
+▶ 그림 출처
+
+ - 그림1 :  https://www.cntk.ai/pythondocs/CNTK_103B_MNIST_LogisticRegression.html
+ - 그림2 : 
+https://lmlcr.gagolewski.com/shallow-and-deep-neural-networks.html
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 110px;
+  height: 128px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
