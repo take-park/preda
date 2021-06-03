@@ -4,6 +4,7 @@
     <title>신용카드 사용자 연체 예측 AI 경진대회</title>
     <meta charset="utf-8" />
     <meta name="author" content="2021-06-04" />
+    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/statisticsplaybook.css" type="text/css" />
     <link rel="stylesheet" href="css/statisticsplaybook-fonts.css" type="text/css" />
@@ -40,7 +41,7 @@ class: title-slide, left, bottom
 ### Multinomial Logistic Regression, 다항 로지스틱 회귀, 다중 분류 
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="../0604pt/img/MLR2.PNG" alt="그림1" width="20%" /&gt;
+&lt;img src="img/MLR2.png" alt="그림1" width="20%" /&gt;
 &lt;p class="caption"&gt;그림1&lt;/p&gt;
 &lt;/div&gt;
 
@@ -57,7 +58,7 @@ class: title-slide, left, bottom
 # 1. MLR? 
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="../0604pt/img/softmax.PNG" alt="그림2" width="50%" /&gt;
+&lt;img src="img/softmax.png" alt="그림2" width="50%" /&gt;
 &lt;p class="caption"&gt;그림2&lt;/p&gt;
 &lt;/div&gt;
 
@@ -135,14 +136,14 @@ mlr_wflow &lt;-
 
 
 ```
-## == Workflow ====================================================================
+## ══ Workflow ════════════════════════════════════════════════════════════════════
 ## Preprocessor: Formula
 ## Model: multinom_reg()
 ## 
-## -- Preprocessor ----------------------------------------------------------------
+## ── Preprocessor ────────────────────────────────────────────────────────────────
 ## credit ~ .
 ## 
-## -- Model -----------------------------------------------------------------------
+## ── Model ───────────────────────────────────────────────────────────────────────
 ## Multinomial Regression Model Specification (classification)
 ## 
 ## Main Arguments:
@@ -159,13 +160,13 @@ mlr_wflow &lt;-
 
 .pull-left[
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="../0604pt/img/tune_mlr.PNG" alt="100개" width="100%" /&gt;
+&lt;img src="img/tune_mlr.png" alt="100개" width="100%" /&gt;
 &lt;p class="caption"&gt;100개&lt;/p&gt;
 &lt;/div&gt;
 ]
 .pull-right[
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="../0604pt/img/tune_mlr(1000).png" alt="1000개" width="100%" /&gt;
+&lt;img src="img/tune_mlr(1000).png" alt="1000개" width="100%" /&gt;
 &lt;p class="caption"&gt;1000개&lt;/p&gt;
 &lt;/div&gt;
 ]
@@ -177,7 +178,7 @@ mlr_wflow &lt;-
 
 ▷ 튜닝결과 
 
-&lt;img src="../0604pt/img/tune_result2.PNG" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/tune_result2.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -185,10 +186,10 @@ mlr_wflow &lt;-
 
 ▷ 튜닝결과 plot
 .pull-left[
-&lt;img src="../0604pt/img/tune_result_plot.PNG" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/tune_result_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 .pull-right[
-&lt;img src="../0604pt/img/tune_result_plot(1000)2.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/tune_result_plot(1000)2.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -204,7 +205,7 @@ mlr_wflow &lt;-
    
 - `mn_log_tune_best`에 저장
 
-&lt;img src="../0604pt/img/tune_mlr_best.PNG" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/tune_mlr_best.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -213,7 +214,7 @@ mlr_wflow &lt;-
 
 ▷ 최적값을 가지고 학습하기
 
-&lt;img src="../0604pt/img/mlr_fit.PNG" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/mlr_fit.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -225,10 +226,10 @@ mlr_wflow &lt;-
 
 
 .pull-left[
-&lt;img src="../0604pt/img/mlr_test.PNG" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/mlr_test.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 .pull-right[
-&lt;img src="../0604pt/img/mlr_test2.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/mlr_test2.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---

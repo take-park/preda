@@ -75,7 +75,7 @@ class: title-slide, left, bottom
 ### Multinomial Logistic Regression, 다항 로지스틱 회귀, 다중 분류 
 
 ```{r, echo=FALSE, fig.cap="그림1", fig.align='center', out.width = '20%'}
-knitr::include_graphics("../0604pt/img/MLR2.PNG")
+knitr::include_graphics("img/MLR2.png")
 ```
 
 ▷ 로지스틱의 일종으로 선형 회귀가 아닌 **분류** 형태(범주형 회귀)
@@ -91,7 +91,7 @@ knitr::include_graphics("../0604pt/img/MLR2.PNG")
 # 1. MLR? 
 
 ```{r, echo=FALSE, fig.cap="그림2", fig.align='center', out.width = '50%'}
-knitr::include_graphics("../0604pt/img/softmax.PNG")
+knitr::include_graphics("img/softmax.png")
 ```
 
 ▷ 후처리 함수, 활성화함수(Activation function), Softmax 
@@ -175,12 +175,12 @@ mlr_wflow
 
 .pull-left[
 ```{r, echo=FALSE, fig.cap="100개", fig.align='center', out.width = '100%'}
-knitr::include_graphics("../0604pt/img/tune_mlr.PNG")
+knitr::include_graphics("img/tune_mlr.png")
 ```
 ]
 .pull-right[
 ```{r, echo=FALSE, fig.cap="1000개", fig.align='center', out.width = '100%'}
-knitr::include_graphics("../0604pt/img/tune_mlr(1000).png")
+knitr::include_graphics("img/tune_mlr(1000).png")
 ```
 ]
   > - `metrics` : 최적값 평가 지표는 mean log loss
@@ -192,7 +192,7 @@ knitr::include_graphics("../0604pt/img/tune_mlr(1000).png")
 ▷ 튜닝결과 
 
 ```{r, echo=FALSE, fig.cap="", fig.align='center', out.width = '70%'}
-knitr::include_graphics("../0604pt/img/tune_result2.PNG")
+knitr::include_graphics("img/tune_result2.png")
 ```
 
 ---
@@ -202,12 +202,12 @@ knitr::include_graphics("../0604pt/img/tune_result2.PNG")
 ▷ 튜닝결과 plot
 .pull-left[
 ```{r, echo=FALSE, fig.cap="", fig.align='center', out.width = '100%'}
-knitr::include_graphics("../0604pt/img/tune_result_plot.PNG")
+knitr::include_graphics("img/tune_result_plot.png")
 ```
 ]
 .pull-right[
 ```{r, echo=FALSE, fig.cap="", fig.align='center', out.width = '100%'}
-knitr::include_graphics("../0604pt/img/tune_result_plot(1000)2.png")
+knitr::include_graphics("img/tune_result_plot(1000)2.png")
 ```
 ]
 
@@ -225,7 +225,7 @@ knitr::include_graphics("../0604pt/img/tune_result_plot(1000)2.png")
 - `mn_log_tune_best`에 저장
 
 ```{r, echo=FALSE, fig.cap="", fig.align='center', out.width = '70%'}
-knitr::include_graphics("../0604pt/img/tune_mlr_best.PNG")
+knitr::include_graphics("img/tune_mlr_best.png")
 ```
 
 
@@ -236,7 +236,7 @@ knitr::include_graphics("../0604pt/img/tune_mlr_best.PNG")
 ▷ 최적값을 가지고 학습하기
 
 ```{r, echo=FALSE, fig.cap="", fig.align='center', out.width = '70%'}
-knitr::include_graphics("../0604pt/img/mlr_fit.PNG")
+knitr::include_graphics("img/mlr_fit.png")
 ```
 
 ---
@@ -250,12 +250,12 @@ knitr::include_graphics("../0604pt/img/mlr_fit.PNG")
 
 .pull-left[
 ```{r, echo=FALSE, fig.cap="", fig.align='center', out.width = '100%'}
-knitr::include_graphics("../0604pt/img/mlr_test.PNG")
+knitr::include_graphics("img/mlr_test.png")
 ```
 ]
 .pull-right[
 ```{r, echo=FALSE, fig.cap="", fig.align='center', out.width = '60%'}
-knitr::include_graphics("../0604pt/img/mlr_test2.png")
+knitr::include_graphics("img/mlr_test2.png")
 ```
 ]
 
