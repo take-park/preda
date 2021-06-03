@@ -21,6 +21,8 @@ navbar:
           href: 0514 HW2(take).pdf
         - text: "R 단축키 출력용"
           href: R 단축키.hwp
+        - text: "pt-credit card"
+          href: 0604pt2.html
     - text: "About"
       href: about.html
 output: distill::distill_article

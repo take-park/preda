@@ -1,0 +1,25 @@
+- 27> factor로 바꾸는 건 왜? / 샘 코드에선 없던데?
+- 33> 27>과 동일
+- 45> days_employed 변수의 p100값이 365243라서, sd가 매우 크게 나옴 137475 아웃라이어 처리하거나 더미값으로 미는 것도 고려해볼 필요.
+- 50> step_unknown(occyp_type)이 뭐지? 직업 결측치(69%)가 커서 뺀거 같은데, 살려야 하지 않나?, 결측값을 평균 또는 중앙값으로 두고 해도 좋을 듯.
+- 53> step_integer(all_nominal(), -all_outcomes()) 뭐지?
+      all_outcomess()는 뭐고 왜 -를 하는가?
+- 71> rf에서 mtry와 min_n, trees 의 의미
+- 74> importance는 뭔가?
+- 77> param_grid <- grid_random(finalize(mtry(), x = train2[,-1]), min_n(), size = 100) 는 뭐지?
+- 159> penalty, mixture가 아니라 mtry min_n 이던데? 3, 5;;;
+          위에 rf가 충분히 안 돌아서(중간에 짤라서) 그런건가?
+- rf) 왜 이렇게 오래 돌지?
+- 오류?
+> tic()
+> mlr_fit_vfold <- 
++   mlr_wflow %>% 
++   fit_resamples(credit ~ .,
++                 data = train2,
++                 resamples = validation_split,
++                 metrics = metric_set(mn_log_loss),
++                 control = control_stack_resamples())
+경고메시지(들): 
+The `...` are not used in this function but one or more objects were passed: '', 'data' 
+> toc()
+13.67 sec elapsed
